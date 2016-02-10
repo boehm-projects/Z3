@@ -210,7 +210,7 @@ class APITypes:
         exec('%s = %s' % (var, id), globals())
         Type2Str[id] = c_type
         Type2PyStr[id] = py_type
-		Type2JsStr[id] = py_type
+        Type2JsStr[id] = py_type
         self.next_type_id += 1
 
 
