@@ -2116,7 +2116,8 @@ def generate_files(api_files,
                    java_output_dir=None,
                    java_package_name=None,
                    ml_output_dir=None,
-                   ml_src_dir=None):
+                   ml_src_dir=None),
+                   z3js_output_dir='../../bin/'):
   """
     Scan the api files in ``api_files`` and emit the relevant API files into
     the output directories specified. If an output directory is set to ``None``
@@ -2163,11 +2164,13 @@ def generate_files(api_files,
     with mk_file_or_temp(api_output_dir, 'api_log_macros.cpp') as log_c:
       with mk_file_or_temp(api_output_dir, 'api_commands.cpp') as exe_c:
         with mk_file_or_temp(z3py_output_dir, os.path.join('z3', 'z3core.py')) as core_py:
-          # Write preambles
-          write_log_h_preamble(log_h)
-          write_log_c_preamble(log_c)
-          write_exe_c_preamble(exe_c)
-          write_core_py_preamble(core_py)
+          with mk_file_or_temp(z3js_output_dir, 'z3_bindings_stripped.js') as core_js:
+            with mk_file_or_temp(z3js_output_dir, 'z3_bindings_flat') as core_flat:
+               # Write preambles
+               write_log_h_preamble(log_h)
+               write_log_c_preamble(log_c)
+               write_exe_c_preamble(exe_c)
+               write_core_py_preamble(core_py)
 
           # FIXME: these functions are awful
           apiTypes.def_Types(api_files)
