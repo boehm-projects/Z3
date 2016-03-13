@@ -2179,11 +2179,12 @@ def generate_files(api_files,
           mk_py_wrappers()
           write_core_py_post(core_py)
 
-          if is_verbose():
-            print("Generated '{}'".format(log_h.name))
-            print("Generated '{}'".format(log_c.name))
-            print("Generated '{}'".format(exe_c.name))
-            print("Generated '{}'".format(core_py.name))
+               if is_verbose():
+                 print("Generated '{}'".format(log_h.name))
+                 print("Generated '{}'".format(log_c.name))
+                 print("Generated '{}'".format(exe_c.name))
+                 print("Generated '{}'".format(core_py.name))
+                 print("Generated '{}'".format(core_js.name))
 
   if dotnet_output_dir:
     with open(os.path.join(dotnet_output_dir, 'Native.cs'), 'w') as dotnet_file:
@@ -2260,6 +2261,7 @@ def main(args):
   generate_files(api_files=pargs.api_files,
                  api_output_dir=pargs.api_output_dir,
                  z3py_output_dir=pargs.z3py_output_dir,
+                 z3js_output_dir=pargs.z3py_output_dir,
                  dotnet_output_dir=pargs.dotnet_output_dir,
                  java_input_dir=pargs.java_input_dir,
                  java_output_dir=pargs.java_output_dir,
