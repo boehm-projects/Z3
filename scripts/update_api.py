@@ -172,7 +172,7 @@ Type2PyStr = { VOID_PTR : 'ctypes.c_void_p', INT : 'ctypes.c_int', UINT : 'ctype
 Type2JsStr = { VOID : 'Void', VOID_PTR : 'Voidp', INT : 'CInt', UINT : 'CUInt', INT64 : 'CLong',
                UINT64 : 'CULong', DOUBLE : 'CDouble',
                STRING : 'CString', STRING_PTR : 'CStringPtr', FLOAT: 'CFloat', BOOL : 'CInt', SYMBOL : 'Symbol',
-               PRINT_MODE : 'CUInt', ERROR_CODE : 'CUInt'
+               PRINT_MODE : 'CUInt', ERROR_CODE : 'CUInt', CHAR: 'CChar', CHAR_PTR: 'CString'
                }
 
 # Mapping to .NET types
@@ -1925,7 +1925,9 @@ def def_APIs(api_files):
                 if m:
                     eval(line)
             except Exception as e:
-                error('ERROR: While processing: %s: %s\n' % (e, line))
+                print("Failed to process API definition: %s" % line)
+                print('Error: ' + str(e))
+                raise mk_exec_header.MKException("Failed to process API definition: %s" % line)
 
 def write_log_h_preamble(log_h):
   log_h.write('// Automatically generated file\n')
