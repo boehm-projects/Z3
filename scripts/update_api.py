@@ -34,6 +34,92 @@ def is_verbose():
 #
 ##########################################################
 
+#
+# Generate logging support and bindings
+#
+api_dir     = get_component('api').src_dir
+dotnet_dir  = get_component('dotnet').src_dir
+
+log_h   = open(os.path.join(api_dir, 'api_log_macros.h'), 'w')
+log_c   = open(os.path.join(api_dir, 'api_log_macros.cpp'), 'w')
+exe_c   = open(os.path.join(api_dir, 'api_commands.cpp'), 'w')
+core_py = open(os.path.join(get_z3py_dir(), 'z3core.py'), 'w')
+core_js = open(os.path.join(get_z3js_dir(), 'z3_bindings_stripped.js'), 'w')
+core_flat = open(os.path.join(get_z3js_dir(), 'z3_bindings_flat'), 'w')
+dotnet_fileout = os.path.join(dotnet_dir, 'Native.cs')
+##
+log_h.write('// Automatically generated file\n')
+log_h.write('#include\"z3.h\"\n')
+log_h.write('#ifdef __GNUC__\n')
+log_h.write('#define _Z3_UNUSED __attribute__((unused))\n')
+log_h.write('#else\n')
+log_h.write('#define _Z3_UNUSED\n')
+log_h.write('#endif\n')
+
+##
+log_c.write('// Automatically generated file\n')
+log_c.write('#include<iostream>\n')
+log_c.write('#include\"z3.h\"\n')
+log_c.write('#include\"api_log_macros.h\"\n')
+log_c.write('#include\"z3_logger.h\"\n')
+##
+exe_c.write('// Automatically generated file\n')
+exe_c.write('#include\"z3.h\"\n')
+exe_c.write('#include\"z3_replayer.h\"\n')
+##
+log_h.write('extern std::ostream * g_z3_log;\n')
+log_h.write('extern bool           g_z3_log_enabled;\n')
+log_h.write('class z3_log_ctx { bool m_prev; public: z3_log_ctx():m_prev(g_z3_log_enabled) { g_z3_log_enabled = false; } ~z3_log_ctx() { g_z3_log_enabled = m_prev; } bool enabled() const { return m_prev; } };\n')
+log_h.write('inline void SetR(void * obj) { *g_z3_log << "= " << obj << "\\n"; }\ninline void SetO(void * obj, unsigned pos) { *g_z3_log << "* " << obj << " " << pos << "\\n"; } \ninline void SetAO(void * obj, unsigned pos, unsigned idx) { *g_z3_log << "@ " << obj << " " << pos << " " << idx << "\\n"; }\n')
+log_h.write('#define RETURN_Z3(Z3RES) if (_LOG_CTX.enabled()) { SetR(Z3RES); } return Z3RES\n')
+log_h.write('void _Z3_append_log(char const * msg);\n')
+##
+exe_c.write('void Z3_replacer_error_handler(Z3_context ctx, Z3_error_code c) { printf("[REPLAYER ERROR HANDLER]: %s\\n", Z3_get_error_msg_ex(ctx, c)); }\n')
+##
+core_py.write('# Automatically generated file\n')
+core_py.write('import sys, os\n')
+core_py.write('import ctypes\n')
+core_py.write('from z3types import *\n')
+core_py.write('from z3consts import *\n')
+core_py.write("""
+_lib = None
+def lib():
+  global _lib
+  if _lib == None:
+    _dir = os.path.dirname(os.path.abspath(__file__))
+    for ext in ['dll', 'so', 'dylib']:
+      try:
+        init('libz3.%s' % ext)
+        break
+      except:
+        pass
+      try:
+        init(os.path.join(_dir, 'libz3.%s' % ext))
+        break
+      except:
+        pass
+    if _lib == None:
+        raise Z3Exception("init(Z3_LIBRARY_PATH) must be invoked before using Z3-python")
+  return _lib
+
+def _to_ascii(s):
+  if isinstance(s, str):
+    return s.encode('ascii')
+  else:
+    return s
+
+if sys.version < '3':
+  def _to_pystr(s):
+     return s
+else:
+  def _to_pystr(s):
+     return s.decode('utf-8')
+
+def init(PATH):
+  global _lib
+  _lib = ctypes.CDLL(PATH)
+""")
+
 IN          = 0
 OUT         = 1
 INOUT       = 2
@@ -83,6 +169,12 @@ Type2PyStr = { VOID_PTR : 'ctypes.c_void_p', INT : 'ctypes.c_int', UINT : 'ctype
                PRINT_MODE : 'ctypes.c_uint', ERROR_CODE : 'ctypes.c_uint', CHAR : 'ctypes.c_char', CHAR_PTR: 'ctypes.POINTER(ctypes.c_char)', LBOOL : 'ctypes.c_int'
                }
 
+Type2JsStr = { VOID : 'Void', VOID_PTR : 'Voidp', INT : 'CInt', UINT : 'CUInt', INT64 : 'CLong',
+               UINT64 : 'CULong', DOUBLE : 'CDouble',
+               STRING : 'CString', STRING_PTR : 'CStringPtr', FLOAT: 'CFloat', BOOL : 'CInt', SYMBOL : 'Symbol',
+               PRINT_MODE : 'CUInt', ERROR_CODE : 'CUInt'
+               }
+
 # Mapping to .NET types
 Type2Dotnet = { VOID : 'void', VOID_PTR : 'IntPtr', INT : 'int', UINT : 'uint', INT64 : 'Int64', UINT64 : 'UInt64', DOUBLE : 'double',
                 FLOAT : 'float', STRING : 'string', STRING_PTR : 'byte**', BOOL : 'byte', SYMBOL : 'IntPtr',
@@ -111,9 +203,10 @@ class APITypes:
         exec('%s = %s' % (var, id), globals())
         Type2Str[id] = c_type
         Type2PyStr[id] = py_type
+		Type2JsStr[id] = py_type
         self.next_type_id += 1
 
-        
+
     def def_Types(self, api_files):
         global Closures
         pat1 = re.compile(r" *def_Type\(\'(.*)\',[^\']*\'(.*)\',[^\']*\'(.*)\'\)[ \t]*")
@@ -132,7 +225,7 @@ class APITypes:
                         continue
         #
         # Populate object type entries in dotnet and ML bindings.
-        # 
+        #
         for k in Type2Str:
             v = Type2Str[k]
             if is_obj(k) or is_fn(k):
@@ -155,6 +248,10 @@ def type2str(ty):
 def type2pystr(ty):
     global Type2PyStr
     return Type2PyStr[ty]
+
+def type2jsstr(ty):
+    global Type2JsStr
+    return Type2JsStr[ty]
 
 def type2dotnet(ty):
     global Type2Dotnet
@@ -207,15 +304,24 @@ def param_array_capacity_pos(p):
 def param_array_size_pos(p):
     return p[3]
 
+
+def param2jsstr(p):
+    if param_kind(p) == IN_ARRAY or param_kind(p) == OUT_ARRAY or param_kind(p) == IN_ARRAY or param_kind(p) == INOUT_ARRAY:
+        return "%sArray" % type2jsstr(param_type(p))
+    elif param_kind(p) == OUT:
+        return "ref.refType(%s)" % type2jsstr(param_type(p))
+    else:
+        return type2jsstr(param_type(p))
+
 def param2str(p):
     if param_kind(p) == IN_ARRAY:
         return "%s const *" % (type2str(param_type(p)))
     elif param_kind(p) == OUT_ARRAY or param_kind(p) == IN_ARRAY or param_kind(p) == INOUT_ARRAY:
-        return "%s*" % (type2str(param_type(p))) 
+        return "%s*" % (type2str(param_type(p)))
     elif param_kind(p) == OUT:
-        return "%s*" % (type2str(param_type(p))) 
+        return "%s*" % (type2str(param_type(p)))
     elif param_kind(p) == FN_PTR:
-        return "%s*" % (type2str(param_type(p))) 
+        return "%s*" % (type2str(param_type(p)))
     else:
         return type2str(param_type(p))
 
@@ -287,7 +393,41 @@ def mk_py_binding(name, result, params):
         core_py.write(param2pystr(p))
     core_py.write("]\n")
 
+
+# Save name, result, params to generate wrapper
+_API2JS = []
+FirstJS = True
+
+#     GeneratedBindings['Z3_set_param_value'] = [ Void, [ Config, 'string', 'string' ]];
+def mk_js_binding(name, result, params):
+    global core_js
+    global core_flat
+    global FirstJS
+    global _API2JS
+
+    _API2JS.append((name, result, params))
+
+    if FirstJS == False:
+        core_flat.write(", ")
+
+    core_flat.write("\'_%s\'" % (name))
+
+    core_js.write("GeneratedBindings[\'%s\'] = [ %s, [ " % (name, type2jsstr(result)))
+    first = True
+    for p in params:
+        if first:
+            first = False
+        else:
+            core_js.write(", ")
+        core_js.write(param2jsstr(p))
+
+    FirstJS = False
+
+    core_js.write("]];")
+    core_js.write("\n")
+
 def extra_API(name, result, params):
+    mk_js_binding(name, result, params)
     mk_py_binding(name, result, params)
     reg_dotnet(name, result, params)
 
@@ -314,7 +454,7 @@ Unchecked = frozenset([ 'Z3_dec_ref', 'Z3_params_dec_ref', 'Z3_model_dec_ref',
                         'Z3_func_interp_dec_ref', 'Z3_func_entry_dec_ref',
                         'Z3_goal_dec_ref', 'Z3_tactic_dec_ref', 'Z3_simplifier_dec_ref', 'Z3_probe_dec_ref',
                         'Z3_fixedpoint_dec_ref', 'Z3_param_descrs_dec_ref',
-                        'Z3_ast_vector_dec_ref', 'Z3_ast_map_dec_ref', 
+                        'Z3_ast_vector_dec_ref', 'Z3_ast_map_dec_ref',
                         'Z3_apply_result_dec_ref', 'Z3_solver_dec_ref',
                         'Z3_stats_dec_ref', 'Z3_optimize_dec_ref'])
 
@@ -342,7 +482,7 @@ def Z3_set_error_handler(ctx, hndlr, _elems=Elementaries(_lib.Z3_set_error_handl
 def Z3_solver_register_on_clause(ctx, s, user_ctx, on_clause_eh, _elems = Elementaries(_lib.Z3_solver_register_on_clause)):
     _elems.f(ctx, s, user_ctx, on_clause_eh)
     _elems.Check(ctx)
-    
+
 def Z3_solver_propagate_init(ctx, s, user_ctx, push_eh, pop_eh, fresh_eh, _elems = Elementaries(_lib.Z3_solver_propagate_init)):
     _elems.f(ctx, s, user_ctx, push_eh, pop_eh, fresh_eh)
     _elems.Check(ctx)
@@ -429,12 +569,12 @@ def mk_dotnet(dotnet):
         sig = sig.replace("unsigned const*","uint[]")
         sig = sig.replace("void*","voidp").replace("unsigned","uint")
         sig = sig.replace("Z3_ast*","ref IntPtr").replace("uint*","ref uint").replace("Z3_lbool*","ref int")
-        ret = ret.replace("void*","voidp").replace("unsigned","uint")        
+        ret = ret.replace("void*","voidp").replace("unsigned","uint")
         if "*" in sig or "*" in ret:
             continue
         dotnet.write('        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]\n')
         dotnet.write('        public delegate %s %s(%s);\n' % (ret,name,sig))
-    
+
     dotnet.write('        public class LIB\n')
     dotnet.write('        {\n')
     dotnet.write('            const string Z3_DLL_NAME = \"libz3\";\n'
@@ -765,10 +905,10 @@ def mk_java(java_src, java_dir, package_name):
     java_wrapper.write("// Automatically generated file\n")
     with open(java_src + "/NativeStatic.txt") as ins:
         for line in ins:
-            java_wrapper.write(line)            
+            java_wrapper.write(line)
     for name, result, params in _dotnet_decls:
         java_wrapper.write('DLL_VIS JNIEXPORT %s JNICALL Java_%s_Native_INTERNAL%s(JNIEnv * jenv, jclass cls' % (type2javaw(result), pkg_str, java_method_name(name)))
-        i = 0        
+        i = 0
         for param in params:
             java_wrapper.write(', ')
             java_wrapper.write('%s a%d' % (param2javaw(param), i))
@@ -996,6 +1136,7 @@ API2Id = {}
 def def_API(name, result, params):
     global API2Id, next_id
     global log_h, log_c
+    mk_js_binding(name, result, params)
     mk_py_binding(name, result, params)
     reg_dotnet(name, result, params)
     API2Id[next_id] = name
