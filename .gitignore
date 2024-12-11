@@ -1,7 +1,3 @@
-.DS_Store
-build
-*npm*
-a.out*
 *~
 rebase.cmd
 *.pyc
