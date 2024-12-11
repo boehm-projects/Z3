@@ -19,119 +19,127 @@ import sysconfig
 import compileall
 import subprocess
 
+
 def getenv(name, default):
     try:
         return os.environ[name].strip(' "\'')
     except:
         return default
 
-CXX=getenv("CXX", None)
-CC=getenv("CC", None)
-CPPFLAGS=getenv("CPPFLAGS", "")
-CXXFLAGS=getenv("CXXFLAGS", "")
-AR=getenv("AR", "ar")
-EXAMP_DEBUG_FLAG=''
-LDFLAGS=getenv("LDFLAGS", "")
-JNI_HOME=getenv("JNI_HOME", None)
-OCAMLC=getenv("OCAMLC", "ocamlc")
-OCAMLOPT=getenv("OCAMLOPT", "ocamlopt")
-OCAML_LIB=getenv("OCAML_LIB", None)
-OCAMLFIND=getenv("OCAMLFIND", "ocamlfind")
-DOTNET="dotnet"
-# Standard install directories relative to PREFIX
-INSTALL_BIN_DIR=getenv("Z3_INSTALL_BIN_DIR", "bin")
-INSTALL_LIB_DIR=getenv("Z3_INSTALL_LIB_DIR", "lib")
-INSTALL_INCLUDE_DIR=getenv("Z3_INSTALL_INCLUDE_DIR", "include")
-INSTALL_PKGCONFIG_DIR=getenv("Z3_INSTALL_PKGCONFIG_DIR", os.path.join(INSTALL_LIB_DIR, 'pkgconfig'))
 
-CXX_COMPILERS=['g++', 'clang++']
-C_COMPILERS=['gcc', 'clang']
-JAVAC=None
-JAR=None
-PYTHON_PACKAGE_DIR=sysconfig.get_path('purelib')
-BUILD_DIR='build'
-REV_BUILD_DIR='..'
-SRC_DIR='src'
-EXAMPLE_DIR='examples'
+CXX = getenv("CXX", None)
+CC = getenv("CC", None)
+CPPFLAGS = getenv("CPPFLAGS", "")
+CXXFLAGS = getenv("CXXFLAGS", "")
+AR = getenv("AR", "ar")
+EXAMP_DEBUG_FLAG = ''
+LDFLAGS = getenv("LDFLAGS", "")
+JNI_HOME = getenv("JNI_HOME", None)
+OCAMLC = getenv("OCAMLC", "ocamlc")
+OCAMLOPT = getenv("OCAMLOPT", "ocamlopt")
+OCAML_LIB = getenv("OCAML_LIB", None)
+OCAMLFIND = getenv("OCAMLFIND", "ocamlfind")
+DOTNET = "dotnet"
+# Standard install directories relative to PREFIX
+INSTALL_BIN_DIR = getenv("Z3_INSTALL_BIN_DIR", "bin")
+INSTALL_LIB_DIR = getenv("Z3_INSTALL_LIB_DIR", "lib")
+INSTALL_INCLUDE_DIR = getenv("Z3_INSTALL_INCLUDE_DIR", "include")
+INSTALL_PKGCONFIG_DIR = getenv(
+    "Z3_INSTALL_PKGCONFIG_DIR", os.path.join(INSTALL_LIB_DIR, 'pkgconfig'))
+
+CXX_COMPILERS = ['g++', 'clang++']
+C_COMPILERS = ['gcc', 'clang']
+JAVAC = None
+JAR = None
+PYTHON_PACKAGE_DIR = sysconfig.get_path('purelib')
+BUILD_DIR = 'build'
+REV_BUILD_DIR = '..'
+SRC_DIR = 'src'
+EXAMPLE_DIR = 'examples'
 # Required Components
-Z3_DLL_COMPONENT='api_dll'
-PATTERN_COMPONENT='pattern'
-UTIL_COMPONENT='util'
-API_COMPONENT='api'
-DOTNET_COMPONENT='dotnet'
-DOTNET_CORE_COMPONENT='dotnet'
-JAVA_COMPONENT='java'
-ML_COMPONENT='ml'
-CPP_COMPONENT='cpp'
-PYTHON_COMPONENT='python'
+Z3_DLL_COMPONENT = 'api_dll'
+PATTERN_COMPONENT = 'pattern'
+UTIL_COMPONENT = 'util'
+API_COMPONENT = 'api'
+DOTNET_COMPONENT = 'dotnet'
+DOTNET_CORE_COMPONENT = 'dotnet'
+JAVA_COMPONENT = 'java'
+ML_COMPONENT = 'ml'
+CPP_COMPONENT = 'cpp'
+PYTHON_COMPONENT = 'python'
 #####################
-IS_WINDOWS=False
-IS_LINUX=False
-IS_HURD=False
-IS_OSX=False
-IS_ARCH_ARM64=False
-IS_FREEBSD=False
-IS_NETBSD=False
-IS_OPENBSD=False
-IS_SUNOS=False
-IS_CYGWIN=False
-IS_CYGWIN_MINGW=False
-IS_MSYS2=False
-VERBOSE=True
-DEBUG_MODE=False
+IS_WINDOWS = False
+IS_LINUX = False
+IS_HURD = False
+IS_OSX = False
+IS_ARCH_ARM64 = False
+IS_FREEBSD = False
+IS_NETBSD = False
+IS_OPENBSD = False
+IS_SUNOS = False
+IS_CYGWIN = False
+IS_CYGWIN_MINGW = False
+IS_MSYS2 = False
+VERBOSE = True
+DEBUG_MODE = False
 SHOW_CPPS = True
 VS_X64 = False
 VS_ARM = False
 LINUX_X64 = True
 ONLY_MAKEFILES = False
-Z3PY_SRC_DIR=None
-Z3JS_SRC_DIR=None
+Z3PY_SRC_DIR = None
+Z3JS_SRC_DIR = None
 VS_PROJ = False
 TRACE = False
-PYTHON_ENABLED=False
-DOTNET_CORE_ENABLED=False
-DOTNET_KEY_FILE=getenv("Z3_DOTNET_KEY_FILE", None)
-ASSEMBLY_VERSION=getenv("Z2_ASSEMBLY_VERSION", None)
-JAVA_ENABLED=False
-ML_ENABLED=False
-PYTHON_INSTALL_ENABLED=False
-STATIC_LIB=False
-STATIC_BIN=False
-VER_MAJOR=None
-VER_MINOR=None
-VER_BUILD=None
-VER_TWEAK=None
-PREFIX=sys.prefix
-GMP=False
-VS_PAR=False
-VS_PAR_NUM=8
-GPROF=False
-GIT_HASH=False
-GIT_DESCRIBE=False
-SLOW_OPTIMIZE=False
-LOG_SYNC=False
-SINGLE_THREADED=False
-GUARD_CF=False
-ALWAYS_DYNAMIC_BASE=False
+PYTHON_ENABLED = False
+DOTNET_CORE_ENABLED = False
+DOTNET_KEY_FILE = getenv("Z3_DOTNET_KEY_FILE", None)
+ASSEMBLY_VERSION = getenv("Z2_ASSEMBLY_VERSION", None)
+JAVA_ENABLED = False
+ML_ENABLED = False
+JS_ENABLED = False
+PYTHON_INSTALL_ENABLED = False
+STATIC_LIB = False
+STATIC_BIN = False
+VER_MAJOR = None
+VER_MINOR = None
+VER_BUILD = None
+VER_TWEAK = None
+PREFIX = sys.prefix
+GMP = False
+VS_PAR = False
+VS_PAR_NUM = 8
+GPROF = False
+GIT_HASH = False
+GIT_DESCRIBE = False
+SLOW_OPTIMIZE = False
+LOG_SYNC = False
+SINGLE_THREADED = False
+GUARD_CF = False
+ALWAYS_DYNAMIC_BASE = False
 
-FPMATH="Default"
-FPMATH_FLAGS="-mfpmath=sse -msse -msse2"
-FPMATH_ENABLED=getenv("FPMATH_ENABLED", "True")
+FPMATH = "Default"
+FPMATH_FLAGS = "-mfpmath=sse -msse -msse2"
+FPMATH_ENABLED = getenv("FPMATH_ENABLED", "True")
 
 
 def check_output(cmd):
     out = subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0]
     if out != None:
         enc = sys.getdefaultencoding()
-        if enc != None: return out.decode(enc).rstrip('\r\n')
-        else: return out.rstrip('\r\n')
+        if enc != None:
+            return out.decode(enc).rstrip('\r\n')
+        else:
+            return out.rstrip('\r\n')
     else:
         return ""
+
 
 def git_hash():
     try:
         branch = check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
-        r = check_output(['git', 'show-ref', '--abbrev=12', 'refs/heads/%s' % branch])
+        r = check_output(
+            ['git', 'show-ref', '--abbrev=12', 'refs/heads/%s' % branch])
     except:
         raise MKException("Failed to retrieve git hash")
     ls = r.split(' ')
@@ -139,44 +147,58 @@ def git_hash():
         raise MKException("Unexpected git output " + r)
     return ls[0]
 
+
 def is_windows():
     return IS_WINDOWS
+
 
 def is_linux():
     return IS_LINUX
 
+
 def is_hurd():
     return IS_HURD
+
 
 def is_freebsd():
     return IS_FREEBSD
 
+
 def is_netbsd():
     return IS_NETBSD
+
 
 def is_openbsd():
     return IS_OPENBSD
 
+
 def is_sunos():
     return IS_SUNOS
+
 
 def is_osx():
     return IS_OSX
 
+
 def is_cygwin():
     return IS_CYGWIN
+
 
 def is_cygwin_mingw():
     return IS_CYGWIN_MINGW
 
+
 def is_msys2():
     return IS_MSYS2
+
 
 def norm_path(p):
     return os.path.expanduser(os.path.normpath(p))
 
+
 def which(program):
     import os
+
     def is_exe(fpath):
         return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
@@ -191,13 +213,15 @@ def which(program):
                 return exe_file
     return None
 
+
 class TempFile:
     def __init__(self, name):
         try:
-            self.name  = name
+            self.name = name
             self.fname = open(name, 'w')
         except:
-            raise MKException("Failed to create temporary file '%s'" % self.name)
+            raise MKException(
+                "Failed to create temporary file '%s'" % self.name)
 
     def add(self, s):
         self.fname.write(s)
@@ -211,6 +235,7 @@ class TempFile:
             os.remove(self.name)
         except:
             pass
+
 
 def exec_cmd(cmd):
     if isinstance(cmd, str):
@@ -241,9 +266,12 @@ def exec_cmd(cmd):
         null.close()
 
 # rm -f fname
+
+
 def rmf(fname):
     if os.path.exists(fname):
         os.remove(fname)
+
 
 def exec_compiler_cmd(cmd):
     r = exec_cmd(cmd)
@@ -256,6 +284,7 @@ def exec_compiler_cmd(cmd):
     rmf('a.worker.js')
     return r
 
+
 def test_cxx_compiler(cc):
     if is_verbose():
         print("Testing %s..." % cc)
@@ -263,6 +292,7 @@ def test_cxx_compiler(cc):
     t.add('#include<iostream>\nint main() { return 0; }\n')
     t.commit()
     return exec_compiler_cmd([cc, CPPFLAGS, CXXFLAGS, 'tst.cpp', LDFLAGS]) == 0
+
 
 def test_c_compiler(cc):
     if is_verbose():
@@ -272,20 +302,21 @@ def test_c_compiler(cc):
     t.commit()
     return exec_compiler_cmd([cc, CPPFLAGS, 'tst.c', LDFLAGS]) == 0
 
+
 def test_gmp(cc):
     if is_verbose():
         print("Testing GMP...")
     t = TempFile('tstgmp.cpp')
-    t.add('#include<gmp.h>\nint main() { mpz_t t; mpz_init(t); mpz_clear(t); return 0; }\n')
+    t.add(
+        '#include<gmp.h>\nint main() { mpz_t t; mpz_init(t); mpz_clear(t); return 0; }\n')
     t.commit()
     return exec_compiler_cmd([cc, CPPFLAGS, 'tstgmp.cpp', LDFLAGS, '-lgmp']) == 0
-
 
 
 def test_fpmath(cc):
     global FPMATH_FLAGS, IS_ARCH_ARM64, IS_OSX
     if FPMATH_ENABLED == "False":
-        FPMATH_FLAGS=""
+        FPMATH_FLAGS = ""
         return "Disabled"
     if IS_ARCH_ARM64 and IS_OSX:
         FPMATH_FLAGS = ""
@@ -299,20 +330,21 @@ def test_fpmath(cc):
     # -m flags.
     # TODO(ritave): Safari doesn't allow SIMD WebAssembly extension, add a flag to build script
     if exec_compiler_cmd([cc, CPPFLAGS, '-Werror', 'tstsse.cpp', LDFLAGS, '-msse -msse2 -msimd128']) == 0:
-        FPMATH_FLAGS='-msse -msse2 -msimd128'
+        FPMATH_FLAGS = '-msse -msse2 -msimd128'
         return 'SSE2-EMSCRIPTEN'
     if exec_compiler_cmd([cc, CPPFLAGS, '-Werror', 'tstsse.cpp', LDFLAGS, '-mfpmath=sse -msse -msse2']) == 0:
-        FPMATH_FLAGS="-mfpmath=sse -msse -msse2"
+        FPMATH_FLAGS = "-mfpmath=sse -msse -msse2"
         return "SSE2-GCC"
     elif exec_compiler_cmd([cc, CPPFLAGS, '-Werror', 'tstsse.cpp', LDFLAGS, '-msse -msse2']) == 0:
-        FPMATH_FLAGS="-msse -msse2"
+        FPMATH_FLAGS = "-msse -msse2"
         return "SSE2-CLANG"
     elif exec_compiler_cmd([cc, CPPFLAGS, '-Werror', 'tstsse.cpp', LDFLAGS, '-mfpu=vfp -mfloat-abi=hard']) == 0:
-        FPMATH_FLAGS="-mfpu=vfp -mfloat-abi=hard"
+        FPMATH_FLAGS = "-mfpu=vfp -mfloat-abi=hard"
         return "ARM-VFP"
     else:
-        FPMATH_FLAGS=""
+        FPMATH_FLAGS = ""
         return "UNKNOWN"
+
 
 def test_atomic_required(cc):
     t = TempFile('tstatomic.cpp')
@@ -330,8 +362,10 @@ def test_atomic_required(cc):
     }
     """)
     t.commit()
-    fails_without = exec_compiler_cmd([cc, CPPFLAGS, '', 'tstatomic.cpp', LDFLAGS, '']) != 0
-    ok_with = exec_compiler_cmd([cc, CPPFLAGS, '', 'tstatomic.cpp', LDFLAGS + ' -latomic', '']) == 0
+    fails_without = exec_compiler_cmd(
+        [cc, CPPFLAGS, '', 'tstatomic.cpp', LDFLAGS, '']) != 0
+    ok_with = exec_compiler_cmd(
+        [cc, CPPFLAGS, '', 'tstatomic.cpp', LDFLAGS + ' -latomic', '']) == 0
     return fails_without and ok_with
 
 
@@ -342,12 +376,13 @@ def find_jni_h(path):
                 return root
     return False
 
+
 def check_java():
     global JNI_HOME
     global JAVAC
     global JAR
 
-    JDK_HOME = getenv('JDK_HOME', None) # we only need to check this locally.
+    JDK_HOME = getenv('JDK_HOME', None)  # we only need to check this locally.
 
     if is_verbose():
         print("Finding javac ...")
@@ -359,7 +394,8 @@ def check_java():
             JAVAC = os.path.join(JDK_HOME, 'bin', 'javac')
 
         if not os.path.exists(JAVAC):
-            raise MKException("Failed to detect javac at '%s/bin'; the environment variable JDK_HOME is probably set to the wrong path." % os.path.join(JDK_HOME))
+            raise MKException(
+                "Failed to detect javac at '%s/bin'; the environment variable JDK_HOME is probably set to the wrong path." % os.path.join(JDK_HOME))
     else:
         # Search for javac in the path.
         ind = 'javac'
@@ -375,7 +411,8 @@ def check_java():
                     break
 
     if JAVAC is None:
-        raise MKException('No java compiler in the path, please adjust your PATH or set JDK_HOME to the location of the JDK.')
+        raise MKException(
+            'No java compiler in the path, please adjust your PATH or set JDK_HOME to the location of the JDK.')
 
     if is_verbose():
         print("Finding jar ...")
@@ -386,23 +423,27 @@ def check_java():
         JAR = os.path.join(os.path.dirname(JAVAC), 'jar')
 
     if not os.path.exists(JAR):
-        raise MKException("Failed to detect jar at '%s'; the environment variable JDK_HOME is probably set to the wrong path." % os.path.join(JDK_HOME))
+        raise MKException(
+            "Failed to detect jar at '%s'; the environment variable JDK_HOME is probably set to the wrong path." % os.path.join(JDK_HOME))
 
     if is_verbose():
         print("Testing %s..." % JAVAC)
 
     t = TempFile('Hello.java')
-    t.add('public class Hello { public static void main(String[] args) { System.out.println("Hello, World"); }}\n')
+    t.add(
+        'public class Hello { public static void main(String[] args) { System.out.println("Hello, World"); }}\n')
     t.commit()
 
     oo = TempFile('output')
     eo = TempFile('errout')
     try:
-        subprocess.call([JAVAC, 'Hello.java', '-verbose', '-source', '1.8', '-target', '1.8' ], stdout=oo.fname, stderr=eo.fname)
+        subprocess.call([JAVAC, 'Hello.java', '-verbose', '-source',
+                        '1.8', '-target', '1.8'], stdout=oo.fname, stderr=eo.fname)
         oo.commit()
         eo.commit()
     except:
-        raise MKException('Found, but failed to run Java compiler at %s' % (JAVAC))
+        raise MKException(
+            'Found, but failed to run Java compiler at %s' % (JAVAC))
 
     os.remove('Hello.class')
 
@@ -411,7 +452,8 @@ def check_java():
 
     if JNI_HOME is not None:
         if not os.path.exists(os.path.join(JNI_HOME, 'jni.h')):
-            raise MKException("Failed to detect jni.h '%s'; the environment variable JNI_HOME is probably set to the wrong path." % os.path.join(JNI_HOME))
+            raise MKException(
+                "Failed to detect jni.h '%s'; the environment variable JNI_HOME is probably set to the wrong path." % os.path.join(JNI_HOME))
     else:
         # Search for jni.h in the library directories...
         t = open('errout', 'r')
@@ -435,8 +477,9 @@ def check_java():
         for dir in cdirs:
             extra_dirs.append(os.path.abspath(os.path.join(dir, '..')))
 
-        if IS_OSX: # Apparently Apple knows best where to put stuff...
-            extra_dirs.append('/System/Library/Frameworks/JavaVM.framework/Headers/')
+        if IS_OSX:  # Apparently Apple knows best where to put stuff...
+            extra_dirs.append(
+                '/System/Library/Frameworks/JavaVM.framework/Headers/')
 
         cdirs[len(cdirs):] = extra_dirs
 
@@ -446,14 +489,16 @@ def check_java():
                 JNI_HOME = q
 
         if JNI_HOME is None:
-            raise MKException("Failed to detect jni.h. Possible solution: set JNI_HOME with the path to JDK.")
+            raise MKException(
+                "Failed to detect jni.h. Possible solution: set JNI_HOME with the path to JDK.")
+
 
 def test_csc_compiler(c):
     t = TempFile('hello.cs')
     t.add('public class hello { public static void Main() {} }')
     t.commit()
     if is_verbose():
-        print ('Testing %s...' % c)
+        print('Testing %s...' % c)
     r = exec_cmd([c, 'hello.cs'])
     try:
         rmf('hello.cs')
@@ -462,27 +507,32 @@ def test_csc_compiler(c):
         pass
     return r == 0
 
+
 def check_dotnet_core():
     if not IS_WINDOWS:
         return
     r = exec_cmd([DOTNET, '--help'])
     if r != 0:
-        raise MKException('Failed testing dotnet. Make sure to install and configure dotnet core utilities')
+        raise MKException(
+            'Failed testing dotnet. Make sure to install and configure dotnet core utilities')
+
 
 def check_ml():
     t = TempFile('hello.ml')
     t.add('print_string "Hello world!\n";;')
     t.commit()
     if is_verbose():
-        print ('Testing %s...' % OCAMLC)
+        print('Testing %s...' % OCAMLC)
     r = exec_cmd([OCAMLC, '-o', 'a.out', 'hello.ml'])
     if r != 0:
-        raise MKException('Failed testing ocamlc compiler. Set environment variable OCAMLC with the path to the Ocaml compiler')
+        raise MKException(
+            'Failed testing ocamlc compiler. Set environment variable OCAMLC with the path to the Ocaml compiler')
     if is_verbose():
-        print ('Testing %s...' % OCAMLOPT)
+        print('Testing %s...' % OCAMLOPT)
     r = exec_cmd([OCAMLOPT, '-o', 'a.out', 'hello.ml'])
     if r != 0:
-        raise MKException('Failed testing ocamlopt compiler. Set environment variable OCAMLOPT with the path to the Ocaml native compiler. Note that ocamlopt may require flexlink to be in your path.')
+        raise MKException(
+            'Failed testing ocamlopt compiler. Set environment variable OCAMLOPT with the path to the Ocaml native compiler. Note that ocamlopt may require flexlink to be in your path.')
     try:
         rmf('hello.cmi')
         rmf('hello.cmo')
@@ -494,18 +544,20 @@ def check_ml():
     find_ml_lib()
     find_ocaml_find()
 
+
 def find_ocaml_find():
     global OCAMLFIND
     if is_verbose():
-        print ("Testing %s..." % OCAMLFIND)
+        print("Testing %s..." % OCAMLFIND)
     r = exec_cmd([OCAMLFIND, 'printconf'])
     if r != 0:
         OCAMLFIND = ''
 
+
 def find_ml_lib():
     global OCAML_LIB
     if is_verbose():
-        print ('Finding OCAML_LIB...')
+        print('Finding OCAML_LIB...')
     t = TempFile('output')
     null = open(os.devnull, 'wb')
     try:
@@ -520,10 +572,11 @@ def find_ml_lib():
     for line in t:
         OCAML_LIB = line[:-1]
     if is_verbose():
-        print ('OCAML_LIB=%s' % OCAML_LIB)
+        print('OCAML_LIB=%s' % OCAML_LIB)
     t.close()
     rmf('output')
     return
+
 
 def is64():
     global LINUX_X64
@@ -532,11 +585,13 @@ def is64():
     else:
         return LINUX_X64 and sys.maxsize >= 2**32
 
+
 def check_ar():
     if is_verbose():
         print("Testing ar...")
     if which(AR) is None:
         raise MKException('%s (archive tool) was not found' % AR)
+
 
 def find_cxx_compiler():
     global CXX, CXX_COMPILERS
@@ -547,7 +602,9 @@ def find_cxx_compiler():
         if test_cxx_compiler(cxx):
             CXX = cxx
             return CXX
-    raise MKException('C++ compiler was not found. Try to set the environment variable CXX with the C++ compiler available in your system.')
+    raise MKException(
+        'C++ compiler was not found. Try to set the environment variable CXX with the C++ compiler available in your system.')
+
 
 def find_c_compiler():
     global CC, C_COMPILERS
@@ -558,7 +615,9 @@ def find_c_compiler():
         if test_c_compiler(c):
             CC = c
             return CC
-    raise MKException('C compiler was not found. Try to set the environment variable CC with the C compiler available in your system.')
+    raise MKException(
+        'C compiler was not found. Try to set the environment variable CC with the C compiler available in your system.')
+
 
 def set_version(major, minor, build, revision):
     global ASSEMBLY_VERSION, VER_MAJOR, VER_MINOR, VER_BUILD, VER_TWEAK, GIT_DESCRIBE
@@ -572,7 +631,8 @@ def set_version(major, minor, build, revision):
             VER_MINOR = versionSplits[1]
             VER_BUILD = versionSplits[2]
             VER_TWEAK = versionSplits[3]
-            print("Set Assembly Version (BUILD):", VER_MAJOR, VER_MINOR, VER_BUILD, VER_TWEAK)
+            print("Set Assembly Version (BUILD):",
+                  VER_MAJOR, VER_MINOR, VER_BUILD, VER_TWEAK)
             return
 
     # use parameters to set up version if not provided by script args
@@ -586,21 +646,27 @@ def set_version(major, minor, build, revision):
         branch = check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
         VER_TWEAK = int(check_output(['git', 'rev-list', '--count', 'HEAD']))
 
-    print("Set Assembly Version (DEFAULT):", VER_MAJOR, VER_MINOR, VER_BUILD, VER_TWEAK)
+    print("Set Assembly Version (DEFAULT):",
+          VER_MAJOR, VER_MINOR, VER_BUILD, VER_TWEAK)
+
 
 def get_version():
     return (VER_MAJOR, VER_MINOR, VER_BUILD, VER_TWEAK)
 
+
 def get_version_string(n):
     if n == 3:
-        return "{}.{}.{}".format(VER_MAJOR,VER_MINOR,VER_BUILD)
-    return "{}.{}.{}.{}".format(VER_MAJOR,VER_MINOR,VER_BUILD,VER_TWEAK)
+        return "{}.{}.{}".format(VER_MAJOR, VER_MINOR, VER_BUILD)
+    return "{}.{}.{}.{}".format(VER_MAJOR, VER_MINOR, VER_BUILD, VER_TWEAK)
+
 
 def build_static_lib():
     return STATIC_LIB
 
+
 def build_static_bin():
     return STATIC_BIN
+
 
 def is_cr_lf(fname):
     # Check whether text files use cr/lf
@@ -612,9 +678,11 @@ def is_cr_lf(fname):
 
 # dos2unix in python
 #    cr/lf --> lf
+
+
 def dos2unix(fname):
     if is_cr_lf(fname):
-        fin  = open(fname, 'r')
+        fin = open(fname, 'r')
         fname_new = '%s.new' % fname
         fout = open(fname_new, 'w')
         for line in fin:
@@ -626,6 +694,7 @@ def dos2unix(fname):
         shutil.move(fname_new, fname)
         if is_verbose():
             print("dos2unix '%s'" % fname)
+
 
 def dos2unix_tree():
     for root, dirs, files in os.walk('src'):
@@ -641,35 +710,36 @@ def check_eol():
                 print("Fixing end of line...")
             dos2unix_tree()
 
+
 if os.name == 'nt':
-    IS_WINDOWS=True
+    IS_WINDOWS = True
     # Visual Studio already displays the files being bin
-    SHOW_CPPS=False
+    SHOW_CPPS = False
 elif os.name == 'posix':
     if os.uname()[0] == 'Darwin':
-        IS_OSX=True
+        IS_OSX = True
     elif os.uname()[0] == 'Linux':
-        IS_LINUX=True
+        IS_LINUX = True
     elif os.uname()[0] == 'GNU':
-        IS_HURD=True
+        IS_HURD = True
     elif os.uname()[0] == 'FreeBSD':
-        IS_FREEBSD=True
+        IS_FREEBSD = True
     elif os.uname()[0] == 'NetBSD':
-        IS_NETBSD=True
+        IS_NETBSD = True
     elif os.uname()[0] == 'OpenBSD':
-        IS_OPENBSD=True
+        IS_OPENBSD = True
     elif os.uname()[0] == 'SunOS':
-        IS_SUNOS=True
+        IS_SUNOS = True
     elif os.uname()[0][:6] == 'CYGWIN':
-        IS_CYGWIN=True
+        IS_CYGWIN = True
         if (CC != None and "mingw" in CC):
-            IS_CYGWIN_MINGW=True
+            IS_CYGWIN_MINGW = True
     elif os.uname()[0].startswith('MSYS_NT') or os.uname()[0].startswith('MINGW'):
-        IS_MSYS2=True
+        IS_MSYS2 = True
         if os.uname()[4] == 'x86_64':
-            LINUX_X64=True
+            LINUX_X64 = True
         else:
-            LINUX_X64=False
+            LINUX_X64 = False
 
 
 if os.name == 'posix' and os.uname()[4] == 'arm64':
@@ -687,7 +757,8 @@ def display_help(exit_code):
         print("  -p <dir>, --prefix=<dir>      installation prefix (default: %s)." % PREFIX)
     else:
         print("  --parallel=num                use cl option /MP with 'num' parallel processes")
-    print("  --pypkgdir=<dir>              Force a particular Python package directory (default %s)" % PYTHON_PACKAGE_DIR)
+    print("  --pypkgdir=<dir>              Force a particular Python package directory (default %s)" %
+          PYTHON_PACKAGE_DIR)
     print("  -b <subdir>, --build=<subdir>  subdirectory where Z3 will be built (default: %s)." % BUILD_DIR)
     print("  --githash=hash                include the given hash in the binaries.")
     print("  --git-describe                include the output of 'git describe' in the version information.")
@@ -738,9 +809,11 @@ def display_help(exit_code):
     exit(exit_code)
 
 # Parse configuration option for mk_make script
+
+
 def parse_options():
     global VERBOSE, DEBUG_MODE, IS_WINDOWS, VS_X64, ONLY_MAKEFILES, SHOW_CPPS, VS_PROJ, TRACE, VS_PAR, VS_PAR_NUM
-    global DOTNET_CORE_ENABLED, DOTNET_KEY_FILE, ASSEMBLY_VERSION, JAVA_ENABLED, ML_ENABLED, STATIC_LIB, STATIC_BIN, PREFIX, GMP, PYTHON_PACKAGE_DIR, GPROF, GIT_HASH, GIT_DESCRIBE, PYTHON_INSTALL_ENABLED, PYTHON_ENABLED
+    global DOTNET_CORE_ENABLED, DOTNET_KEY_FILE, ASSEMBLY_VERSION, JAVA_ENABLED, ML_ENABLED, JS_ENABLED, STATIC_LIB, STATIC_BIN, PREFIX, GMP, PYTHON_PACKAGE_DIR, GPROF, GIT_HASH, GIT_DESCRIBE, PYTHON_INSTALL_ENABLED, PYTHON_ENABLED
     global LINUX_X64, SLOW_OPTIMIZE, LOG_SYNC, SINGLE_THREADED
     global GUARD_CF, ALWAYS_DYNAMIC_BASE, IS_ARCH_ARM64
     try:
@@ -757,7 +830,8 @@ def parse_options():
         print('opt = %s, arg = %s' % (opt, arg))
         if opt in ('-b', '--build'):
             if arg == 'src':
-                raise MKException('The src directory should not be used to host the Makefile')
+                raise MKException(
+                    'The src directory should not be used to host the Makefile')
             set_build_dir(arg)
         elif opt in ('-s', '--silent'):
             VERBOSE = False
@@ -765,12 +839,13 @@ def parse_options():
             DEBUG_MODE = True
         elif opt in ('-x', '--x64'):
             if not IS_WINDOWS:
-                raise MKException('x64 compilation mode can only be specified when using Visual Studio')
+                raise MKException(
+                    'x64 compilation mode can only be specified when using Visual Studio')
             VS_X64 = True
         elif opt in ('--x86'):
-            LINUX_X64=False
+            LINUX_X64 = False
         elif opt in ('--arm64'):
-            IS_ARCH_ARM64 = arg in ('true','on','True','TRUE')
+            IS_ARCH_ARM64 = arg in ('true', 'on', 'True', 'TRUE')
         elif opt in ('-h', '--help'):
             display_help(0)
         elif opt in ('-m', '--makefiles'):
@@ -807,11 +882,13 @@ def parse_options():
         elif opt == '--gprof':
             GPROF = True
         elif opt == '--githash':
-            GIT_HASH=arg
+            GIT_HASH = arg
         elif opt == '--git-describe':
             GIT_DESCRIBE = True
         elif opt in ('', '--ml'):
             ML_ENABLED = True
+        elif opt == "--js":
+            JS_ENABLED = True
         elif opt in ('', '--log-sync'):
             LOG_SYNC = True
         elif opt == '--single-threaded':
@@ -821,7 +898,7 @@ def parse_options():
             PYTHON_INSTALL_ENABLED = True
         elif opt == '--guardcf':
             GUARD_CF = True
-            ALWAYS_DYNAMIC_BASE = True # /GUARD:CF requires /DYNAMICBASE
+            ALWAYS_DYNAMIC_BASE = True  # /GUARD:CF requires /DYNAMICBASE
         else:
             print("ERROR: Invalid command line option '%s'" % opt)
             display_help(1)
@@ -832,8 +909,8 @@ def parse_options():
 def extract_c_includes(fname):
     result = {}
     # We look for well behaved #include directives
-    std_inc_pat     = re.compile(r"[ \t]*#include[ \t]*\"(.*)\"[ \t]*")
-    system_inc_pat  = re.compile(r"[ \t]*#include[ \t]*\<.*\>[ \t]*")
+    std_inc_pat = re.compile(r"[ \t]*#include[ \t]*\"(.*)\"[ \t]*")
+    system_inc_pat = re.compile(r"[ \t]*#include[ \t]*\<.*\>[ \t]*")
     # We should generate and error for any occurrence of #include that does not match the previous pattern.
     non_std_inc_pat = re.compile(".*#include.*")
 
@@ -843,13 +920,15 @@ def extract_c_includes(fname):
         m1 = std_inc_pat.match(line)
         if m1:
             root_file_name = m1.group(1)
-            slash_pos =  root_file_name.rfind('/')
-            if slash_pos >= 0  and root_file_name.find("..") < 0 : #it is a hack for lp include files that behave as continued from "src"
+            slash_pos = root_file_name.rfind('/')
+            # it is a hack for lp include files that behave as continued from "src"
+            if slash_pos >= 0 and root_file_name.find("..") < 0:
                 # print(root_file_name)
                 root_file_name = root_file_name[slash_pos+1:]
             result[root_file_name] = m1.group(1)
         elif not system_inc_pat.match(line) and non_std_inc_pat.match(line):
-            raise MKException("Invalid #include directive at '%s':%s" % (fname, line))
+            raise MKException(
+                "Invalid #include directive at '%s':%s" % (fname, line))
         linenum = linenum + 1
     f.close()
     return result
@@ -865,32 +944,51 @@ def reverse_path(p):
         r = os.path.join(r, '..')
     return r
 
+
 def mk_dir(d):
     if not os.path.exists(d):
         os.makedirs(d)
+
 
 def set_build_dir(d):
     global BUILD_DIR, REV_BUILD_DIR
     BUILD_DIR = norm_path(d)
     REV_BUILD_DIR = reverse_path(d)
 
+
+def set_z3js_dir(p):
+    global SRC_DIR, Z3JS_SRC_DIR
+    p = norm_path(p)
+    full = os.path.join(SRC_DIR, p)
+    if not os.path.exists(full):
+        raise MKException(
+            "Python bindings directory '%s' does not exist" % full)
+    Z3JS_SRC_DIR = full
+    if VERBOSE:
+        print("Js bindings directory was detected.")
+
+
 def set_z3py_dir(p):
     global SRC_DIR, Z3PY_SRC_DIR
     p = norm_path(p)
     full = os.path.join(SRC_DIR, p)
     if not os.path.exists(full):
-        raise MKException("Python bindings directory '%s' does not exist" % full)
+        raise MKException(
+            "Python bindings directory '%s' does not exist" % full)
     Z3PY_SRC_DIR = full
     if VERBOSE:
         print("Python bindings directory was detected.")
 
+
 _UNIQ_ID = 0
+
 
 def mk_fresh_name(prefix):
     global _UNIQ_ID
     r = '%s_%s' % (prefix, _UNIQ_ID)
     _UNIQ_ID = _UNIQ_ID + 1
     return r
+
 
 _Id = 0
 _Components = []
@@ -899,37 +997,55 @@ _Name2Component = {}
 _Processed_Headers = set()
 
 # Return the Component object named name
+
+
 def get_component(name):
     return _Name2Component[name]
+
 
 def get_components():
     return _Components
 
 # Return the directory where the python bindings are located.
+
+
 def get_z3py_dir():
     return Z3PY_SRC_DIR
+
 
 def get_z3js_dir():
     return "../bin/"
 
 # Return true if in verbose mode
+
+
 def is_verbose():
     return VERBOSE
+
 
 def is_java_enabled():
     return JAVA_ENABLED
 
+
 def is_ml_enabled():
     return ML_ENABLED
+
+
+def is_js_enabled():
+    return JS_ENABLED
+
 
 def is_dotnet_core_enabled():
     return DOTNET_CORE_ENABLED
 
+
 def is_python_enabled():
     return PYTHON_ENABLED
 
+
 def is_python_install_enabled():
     return PYTHON_INSTALL_ENABLED
+
 
 def is_compiler(given, expected):
     """
@@ -951,40 +1067,50 @@ def is_compiler(given, expected):
         return given[len(given) - len(expected) - 1] == os.sep and given[len(given) - len(expected):] == expected
     return False
 
+
 def is_CXX_gpp():
     return is_compiler(CXX, 'g++')
+
 
 def is_clang_in_gpp_form(cc):
     str = check_output([cc, '--version'])
     try:
-       version_string = str.encode('utf-8')
+        version_string = str.encode('utf-8')
     except:
-       version_string = str
+        version_string = str
     clang = 'clang'.encode('utf-8')
     return version_string.find(clang) != -1
+
 
 def is_CXX_clangpp():
     if is_compiler(CXX, 'g++'):
         return is_clang_in_gpp_form(CXX)
     return is_compiler(CXX, 'clang++')
 
+
 def get_files_with_ext(path, ext):
     return filter(lambda f: f.endswith(ext), os.listdir(path))
 
+
 def get_cpp_files(path):
-    return get_files_with_ext(path,'.cpp')
+    return get_files_with_ext(path, '.cpp')
+
 
 def get_c_files(path):
-    return get_files_with_ext(path,'.c')
+    return get_files_with_ext(path, '.c')
+
 
 def get_cs_files(path):
-    return get_files_with_ext(path,'.cs')
+    return get_files_with_ext(path, '.cs')
+
 
 def get_java_files(path):
-    return get_files_with_ext(path,'.java')
+    return get_files_with_ext(path, '.java')
+
 
 def get_ml_files(path):
-    return get_files_with_ext(path,'.ml')
+    return get_files_with_ext(path, '.ml')
+
 
 def find_all_deps(name, deps):
     new_deps = []
@@ -999,6 +1125,7 @@ def find_all_deps(name, deps):
             raise MKException("Unknown component '%s' at '%s'." % (dep, name))
     return new_deps
 
+
 class Component:
     def __init__(self, name, path, deps):
         global BUILD_DIR, SRC_DIR, REV_BUILD_DIR
@@ -1011,16 +1138,16 @@ class Component:
         self.path = path
         self.deps = find_all_deps(name, deps)
         self.build_dir = path
-        self.src_dir   = os.path.join(SRC_DIR, path)
+        self.src_dir = os.path.join(SRC_DIR, path)
         self.to_src_dir = os.path.join(REV_BUILD_DIR, self.src_dir)
 
     def get_link_name(self):
         return os.path.join(self.build_dir, self.name) + '$(LIB_EXT)'
 
-
     # Find fname in the include paths for the given component.
     # ownerfile is only used for creating error messages.
     # That is, we were looking for fname when processing ownerfile
+
     def find_file(self, fname, ownerfile, orig_include=None):
         full_fname = os.path.join(self.src_dir, fname)
 
@@ -1054,7 +1181,7 @@ class Component:
                 # Iterate through all of the possibilities
                 for possibility in possibilities:
 
-                    path = possibility.path.replace("\\","/")
+                    path = possibility.path.replace("\\", "/")
                     # If we match the suffix of the path ...
                     if path.endswith(orig_dir):
 
@@ -1067,7 +1194,8 @@ class Component:
             # builds
             return possibilities.pop()
 
-        raise MKException("Failed to find include file '%s' for '%s' when processing '%s'." % (fname, ownerfile, self.name))
+        raise MKException("Failed to find include file '%s' for '%s' when processing '%s'." % (
+            fname, ownerfile, self.name))
 
     # Display all dependencies of file basename located in the given component directory.
     # The result is displayed at out
@@ -1092,7 +1220,7 @@ class Component:
     #     ast/ast_pp.h.node : ../src/util/ast_pp.h util/util.h.node ast/ast.h.node
     #       @echo "done" > ast/ast_pp.h.node
     def add_h_rule(self, out, include):
-        include_src_path   = os.path.join(self.to_src_dir, include)
+        include_src_path = os.path.join(self.to_src_dir, include)
         if include_src_path in _Processed_Headers:
             return
         _Processed_Headers.add(include_src_path)
@@ -1105,21 +1233,23 @@ class Component:
 
     def add_cpp_rules(self, out, include_defs, cppfile):
         self.add_rule_for_each_include(out, cppfile)
-        objfile = '%s$(OBJ_EXT)' % os.path.join(self.build_dir, os.path.splitext(cppfile)[0])
+        objfile = '%s$(OBJ_EXT)' % os.path.join(
+            self.build_dir, os.path.splitext(cppfile)[0])
         srcfile = os.path.join(self.to_src_dir, cppfile)
         out.write('%s: ' % objfile)
         self.add_cpp_h_deps(out, cppfile)
         out.write('\n')
         if SHOW_CPPS:
             out.write('\t@echo %s\n' % os.path.join(self.src_dir, cppfile))
-        out.write('\t@$(CXX) $(CXXFLAGS) $(%s) $(CXX_OUT_FLAG)%s %s\n' % (include_defs, objfile, srcfile))
+        out.write('\t@$(CXX) $(CXXFLAGS) $(%s) $(CXX_OUT_FLAG)%s %s\n' %
+                  (include_defs, objfile, srcfile))
 
     def mk_makefile(self, out):
         include_defs = mk_fresh_name('includes')
         out.write('%s =' % include_defs)
         for dep in self.deps:
             out.write(' -I%s' % get_component(dep).to_src_dir)
-        out.write(' -I%s' % os.path.join(REV_BUILD_DIR,"src"))
+        out.write(' -I%s' % os.path.join(REV_BUILD_DIR, "src"))
         out.write('\n')
         mk_dir(os.path.join(BUILD_DIR, self.build_dir))
         if VS_PAR and IS_WINDOWS:
@@ -1128,18 +1258,22 @@ class Component:
             for cppfile in cppfiles:
                 dependencies.add(os.path.join(self.to_src_dir, cppfile))
                 self.add_rule_for_each_include(out, cppfile)
-                includes = extract_c_includes(os.path.join(self.src_dir, cppfile))
+                includes = extract_c_includes(
+                    os.path.join(self.src_dir, cppfile))
                 for include, orig_include in includes.items():
                     owner = self.find_file(include, cppfile, orig_include)
-                    dependencies.add('%s.node' % os.path.join(owner.build_dir, include))
+                    dependencies.add('%s.node' %
+                                     os.path.join(owner.build_dir, include))
             for cppfile in cppfiles:
-                out.write('%s$(OBJ_EXT) ' % os.path.join(self.build_dir, os.path.splitext(cppfile)[0]))
+                out.write('%s$(OBJ_EXT) ' % os.path.join(
+                    self.build_dir, os.path.splitext(cppfile)[0]))
             out.write(': ')
             for dep in dependencies:
                 out.write(dep)
                 out.write(' ')
             out.write('\n')
-            out.write('\t@$(CXX) $(CXXFLAGS) /MP%s $(%s)' % (VS_PAR_NUM, include_defs))
+            out.write('\t@$(CXX) $(CXXFLAGS) /MP%s $(%s)' %
+                      (VS_PAR_NUM, include_defs))
             for cppfile in cppfiles:
                 out.write(' ')
                 out.write(os.path.join(self.to_src_dir, cppfile))
@@ -1194,6 +1328,7 @@ class Component:
     def final_info(self):
         pass
 
+
 class LibComponent(Component):
     def __init__(self, name, path, deps, includes2install):
         Component.__init__(self, name, path, deps)
@@ -1204,7 +1339,8 @@ class LibComponent(Component):
         # generate rule for lib
         objs = []
         for cppfile in get_cpp_files(self.src_dir):
-            objfile = '%s$(OBJ_EXT)' % os.path.join(self.build_dir, os.path.splitext(cppfile)[0])
+            objfile = '%s$(OBJ_EXT)' % os.path.join(
+                self.build_dir, os.path.splitext(cppfile)[0])
             objs.append(objfile)
 
         libfile = '%s$(LIB_EXT)' % os.path.join(self.build_dir, self.name)
@@ -1233,7 +1369,8 @@ class LibComponent(Component):
 
     def mk_uninstall(self, out):
         for include in self.includes2install:
-            MakeRuleCmd.remove_installed_files(out, os.path.join(INSTALL_INCLUDE_DIR, include))
+            MakeRuleCmd.remove_installed_files(
+                out, os.path.join(INSTALL_INCLUDE_DIR, include))
 
     def mk_win_dist(self, build_path, dist_path):
         mk_dir(os.path.join(dist_path, INSTALL_INCLUDE_DIR))
@@ -1245,6 +1382,8 @@ class LibComponent(Component):
         self.mk_win_dist(build_path, dist_path)
 
 # "Library" containing only .h files. This is just a placeholder for includes files to be installed.
+
+
 class HLibComponent(LibComponent):
     def __init__(self, name, path, includes2install):
         LibComponent.__init__(self, name, path, [], includes2install)
@@ -1253,14 +1392,19 @@ class HLibComponent(LibComponent):
         return
 
 # Auxiliary function for sort_components
+
+
 def comp_components(c1, c2):
     id1 = get_component(c1).id
     id2 = get_component(c2).id
     return id2 - id1
 
 # Sort components based on (reverse) definition time
+
+
 def sort_components(cnames):
     return sorted(cnames, key=lambda c: get_component(c).id, reverse=True)
+
 
 class ExeComponent(Component):
     def __init__(self, name, exe_name, path, deps, install):
@@ -1279,7 +1423,8 @@ class ExeComponent(Component):
         deps = sort_components(self.deps)
         objs = []
         for cppfile in get_cpp_files(self.src_dir):
-            objfile = '%s$(OBJ_EXT)' % os.path.join(self.build_dir, os.path.splitext(cppfile)[0])
+            objfile = '%s$(OBJ_EXT)' % os.path.join(
+                self.build_dir, os.path.splitext(cppfile)[0])
             objs.append(objfile)
         for obj in objs:
             out.write(' ')
@@ -1289,7 +1434,8 @@ class ExeComponent(Component):
             out.write(' ' + c_dep.get_link_name())
         out.write('\n')
         extra_opt = '-static' if not IS_WINDOWS and STATIC_BIN else ''
-        out.write('\t$(LINK) %s $(LINK_OUT_FLAG)%s $(LINK_FLAGS)' % (extra_opt, exefile))
+        out.write('\t$(LINK) %s $(LINK_OUT_FLAG)%s $(LINK_FLAGS)' %
+                  (extra_opt, exefile))
         for obj in objs:
             out.write(' ')
             out.write(obj)
@@ -1317,12 +1463,14 @@ class ExeComponent(Component):
     def mk_install(self, out):
         if self.install:
             exefile = '%s$(EXE_EXT)' % self.exe_name
-            MakeRuleCmd.install_files(out, exefile, os.path.join(INSTALL_BIN_DIR, exefile))
+            MakeRuleCmd.install_files(
+                out, exefile, os.path.join(INSTALL_BIN_DIR, exefile))
 
     def mk_uninstall(self, out):
         if self.install:
             exefile = '%s$(EXE_EXT)' % self.exe_name
-            MakeRuleCmd.remove_installed_files(out, os.path.join(INSTALL_BIN_DIR, exefile))
+            MakeRuleCmd.remove_installed_files(
+                out, os.path.join(INSTALL_BIN_DIR, exefile))
 
     def mk_win_dist(self, build_path, dist_path):
         if self.install:
@@ -1347,6 +1495,7 @@ class ExtraExeComponent(ExeComponent):
     def require_mem_initializer(self):
         return False
 
+
 def get_so_ext():
     sysname = os.uname()[0]
     if sysname == 'Darwin':
@@ -1356,8 +1505,9 @@ def get_so_ext():
     elif sysname == 'CYGWIN' or sysname.startswith('MSYS_NT') or sysname.startswith('MINGW'):
         return 'dll'
     else:
-        assert(False)
+        assert (False)
         return 'dll'
+
 
 class DLLComponent(Component):
     def __init__(self, name, dll_name, path, deps, export_files, reexports, install, static, staging_link=None):
@@ -1369,7 +1519,8 @@ class DLLComponent(Component):
         self.reexports = reexports
         self.install = install
         self.static = static
-        self.staging_link = staging_link    # link a copy of the shared object into this directory on build
+        # link a copy of the shared object into this directory on build
+        self.staging_link = staging_link
 
     def get_link_name(self):
         if self.static:
@@ -1397,13 +1548,15 @@ class DLLComponent(Component):
         deps = sort_components(self.deps)
         objs = []
         for cppfile in get_cpp_files(self.src_dir):
-            objfile = '%s$(OBJ_EXT)' % os.path.join(self.build_dir, os.path.splitext(cppfile)[0])
+            objfile = '%s$(OBJ_EXT)' % os.path.join(
+                self.build_dir, os.path.splitext(cppfile)[0])
             objs.append(objfile)
         # Explicitly include obj files of reexport. This fixes problems with exported symbols on Linux and OSX.
         for reexport in self.reexports:
             reexport = get_component(reexport)
             for cppfile in get_cpp_files(reexport.src_dir):
-                objfile = '%s$(OBJ_EXT)' % os.path.join(reexport.build_dir, os.path.splitext(cppfile)[0])
+                objfile = '%s$(OBJ_EXT)' % os.path.join(
+                    reexport.build_dir, os.path.splitext(cppfile)[0])
                 objs.append(objfile)
         for obj in objs:
             out.write(' ')
@@ -1413,7 +1566,8 @@ class DLLComponent(Component):
                 c_dep = get_component(dep)
                 out.write(' ' + c_dep.get_link_name())
         out.write('\n')
-        out.write('\t$(LINK) $(SLINK_OUT_FLAG)%s $(SLINK_FLAGS)' % self.dll_file())
+        out.write('\t$(LINK) $(SLINK_OUT_FLAG)%s $(SLINK_FLAGS)' %
+                  self.dll_file())
         for obj in objs:
             out.write(' ')
             out.write(obj)
@@ -1423,14 +1577,18 @@ class DLLComponent(Component):
                 out.write(' ' + c_dep.get_link_name())
         out.write(' $(SLINK_EXTRA_FLAGS)')
         if IS_WINDOWS:
-            out.write(' /DEF:%s.def' % os.path.join(self.to_src_dir, self.name))
+            out.write(' /DEF:%s.def' %
+                      os.path.join(self.to_src_dir, self.name))
         if self.staging_link:
             if IS_WINDOWS:
-                out.write('\n\tcopy %s %s' % (self.dll_file(), self.staging_link))
+                out.write('\n\tcopy %s %s' %
+                          (self.dll_file(), self.staging_link))
             elif IS_OSX:
-                out.write('\n\tcp %s %s' % (self.dll_file(), self.staging_link))
+                out.write('\n\tcp %s %s' %
+                          (self.dll_file(), self.staging_link))
             else:
-                out.write('\n\tln -f -s %s %s' % (os.path.join(reverse_path(self.staging_link), self.dll_file()), self.staging_link))
+                out.write('\n\tln -f -s %s %s' % (os.path.join(reverse_path(
+                    self.staging_link), self.dll_file()), self.staging_link))
         out.write('\n')
         if self.static:
             if IS_WINDOWS:
@@ -1446,13 +1604,15 @@ class DLLComponent(Component):
         # generate rule for lib
         objs = []
         for cppfile in get_cpp_files(self.src_dir):
-            objfile = '%s$(OBJ_EXT)' % os.path.join(self.build_dir, os.path.splitext(cppfile)[0])
+            objfile = '%s$(OBJ_EXT)' % os.path.join(
+                self.build_dir, os.path.splitext(cppfile)[0])
             objs.append(objfile)
         # we have to "reexport" all object files
         for dep in self.deps:
             dep = get_component(dep)
             for cppfile in get_cpp_files(dep.src_dir):
-                objfile = '%s$(OBJ_EXT)' % os.path.join(dep.build_dir, os.path.splitext(cppfile)[0])
+                objfile = '%s$(OBJ_EXT)' % os.path.join(
+                    dep.build_dir, os.path.splitext(cppfile)[0])
                 objs.append(objfile)
         out.write('%s:' % libfile)
         for obj in objs:
@@ -1484,15 +1644,18 @@ class DLLComponent(Component):
 
     def mk_install(self, out):
         if self.install:
-            MakeRuleCmd.install_files(out, self.dll_file(), self.install_path())
+            MakeRuleCmd.install_files(
+                out, self.dll_file(), self.install_path())
             if self.static:
                 libfile = '%s$(LIB_EXT)' % self.dll_name
-                MakeRuleCmd.install_files(out, libfile, os.path.join(INSTALL_LIB_DIR, libfile))
+                MakeRuleCmd.install_files(
+                    out, libfile, os.path.join(INSTALL_LIB_DIR, libfile))
 
     def mk_uninstall(self, out):
         MakeRuleCmd.remove_installed_files(out, self.install_path())
         libfile = '%s$(LIB_EXT)' % self.dll_name
-        MakeRuleCmd.remove_installed_files(out, os.path.join(INSTALL_LIB_DIR, libfile))
+        MakeRuleCmd.remove_installed_files(
+            out, os.path.join(INSTALL_LIB_DIR, libfile))
 
     def mk_win_dist(self, build_path, dist_path):
         if self.install:
@@ -1513,9 +1676,10 @@ class DLLComponent(Component):
             shutil.copy('%s.a' % os.path.join(build_path, self.dll_name),
                         '%s.a' % os.path.join(dist_path, INSTALL_BIN_DIR, self.dll_name))
 
+
 class JsComponent(Component):
     def __init__(self):
-         Component.__init__(self, "js", None, [])
+        Component.__init__(self, "js", None, [])
 
     def main_component(self):
         return False
@@ -1528,6 +1692,7 @@ class JsComponent(Component):
 
     def mk_makefile(self, out):
         return
+
 
 class PythonComponent(Component):
     def __init__(self, name, libz3Component):
@@ -1554,6 +1719,7 @@ class PythonComponent(Component):
 
     def mk_makefile(self, out):
         return
+
 
 class PythonInstallComponent(Component):
     def __init__(self, name, libz3Component):
@@ -1587,13 +1753,13 @@ class PythonInstallComponent(Component):
             # CMW: Also normal on *BSD?
             if not PYTHON_PACKAGE_DIR.startswith(PREFIX):
                 raise MKException(('The python package directory ({}) must live ' +
-                    'under the install prefix ({}) to install the python bindings.' +
-                    'Use --pypkgdir and --prefix to set the python package directory ' +
-                    'and install prefix respectively. Note that the python package ' +
-                    'directory does not need to exist and will be created if ' +
-                    'necessary during install.').format(
-                        PYTHON_PACKAGE_DIR,
-                        PREFIX))
+                                   'under the install prefix ({}) to install the python bindings.' +
+                                   'Use --pypkgdir and --prefix to set the python package directory ' +
+                                   'and install prefix respectively. Note that the python package ' +
+                                   'directory does not need to exist and will be created if ' +
+                                   'necessary during install.').format(
+                    PYTHON_PACKAGE_DIR,
+                    PREFIX))
             self.pythonPkgDir = strip_path_prefix(PYTHON_PACKAGE_DIR, PREFIX)
             self.in_prefix_install = True
 
@@ -1614,10 +1780,12 @@ class PythonInstallComponent(Component):
         if not is_python_install_enabled():
             return
         MakeRuleCmd.make_install_directory(out,
-                                           os.path.join(self.pythonPkgDir, 'z3'),
+                                           os.path.join(
+                                               self.pythonPkgDir, 'z3'),
                                            in_prefix=self.in_prefix_install)
         MakeRuleCmd.make_install_directory(out,
-                                           os.path.join(self.pythonPkgDir, 'z3', 'lib'),
+                                           os.path.join(
+                                               self.pythonPkgDir, 'z3', 'lib'),
                                            in_prefix=self.in_prefix_install)
 
         # Sym-link or copy libz3 into python package directory
@@ -1627,7 +1795,7 @@ class PythonInstallComponent(Component):
                                       os.path.join(self.pythonPkgDir, 'z3', 'lib',
                                                    self.libz3Component.dll_file()),
                                       in_prefix=self.in_prefix_install
-                                     )
+                                      )
         else:
             # Create symbolic link to save space.
             # It's important that this symbolic link be relative (rather
@@ -1637,29 +1805,32 @@ class PythonInstallComponent(Component):
                                                       self.libz3Component.install_path(),
                                                       os.path.join(self.pythonPkgDir, 'z3', 'lib',
                                                                    self.libz3Component.dll_file()
-                                                                  ),
-                                                     )
+                                                                   ),
+                                                      )
 
         MakeRuleCmd.install_files(out, os.path.join('python', 'z3', '*.py'),
                                   os.path.join(self.pythonPkgDir, 'z3'),
                                   in_prefix=self.in_prefix_install)
         if sys.version >= "3":
-            pythonPycacheDir = os.path.join(self.pythonPkgDir, 'z3', '__pycache__')
+            pythonPycacheDir = os.path.join(
+                self.pythonPkgDir, 'z3', '__pycache__')
             MakeRuleCmd.make_install_directory(out,
                                                pythonPycacheDir,
                                                in_prefix=self.in_prefix_install)
             MakeRuleCmd.install_files(out,
-                                      os.path.join('python', 'z3', '__pycache__', '*.pyc'),
+                                      os.path.join('python', 'z3',
+                                                   '__pycache__', '*.pyc'),
                                       pythonPycacheDir,
                                       in_prefix=self.in_prefix_install)
         else:
             MakeRuleCmd.install_files(out,
                                       os.path.join('python', 'z3', '*.pyc'),
-                                      os.path.join(self.pythonPkgDir,'z3'),
+                                      os.path.join(self.pythonPkgDir, 'z3'),
                                       in_prefix=self.in_prefix_install)
 
         if PYTHON_PACKAGE_DIR != sysconfig.get_path('purelib'):
-            out.write('\t@echo Z3Py was installed at \'%s\', make sure this directory is in your PYTHONPATH environment variable.' % PYTHON_PACKAGE_DIR)
+            out.write(
+                '\t@echo Z3Py was installed at \'%s\', make sure this directory is in your PYTHONPATH environment variable.' % PYTHON_PACKAGE_DIR)
 
     def mk_uninstall(self, out):
         if not is_python_install_enabled():
@@ -1668,17 +1839,20 @@ class PythonInstallComponent(Component):
                                            os.path.join(self.pythonPkgDir,
                                                         self.libz3Component.dll_file()),
                                            in_prefix=self.in_prefix_install
-                                          )
+                                           )
         MakeRuleCmd.remove_installed_files(out,
-                                           os.path.join(self.pythonPkgDir, 'z3', '*.py'),
+                                           os.path.join(
+                                               self.pythonPkgDir, 'z3', '*.py'),
                                            in_prefix=self.in_prefix_install)
         MakeRuleCmd.remove_installed_files(out,
-                                           os.path.join(self.pythonPkgDir, 'z3', '*.pyc'),
+                                           os.path.join(
+                                               self.pythonPkgDir, 'z3', '*.pyc'),
                                            in_prefix=self.in_prefix_install)
         MakeRuleCmd.remove_installed_files(out,
-                                           os.path.join(self.pythonPkgDir, 'z3', '__pycache__', '*.pyc'),
+                                           os.path.join(
+                                               self.pythonPkgDir, 'z3', '__pycache__', '*.pyc'),
                                            in_prefix=self.in_prefix_install
-                                          )
+                                           )
         MakeRuleCmd.remove_installed_files(out,
                                            os.path.join(self.pythonPkgDir, 'z3', 'lib',
                                                         self.libz3Component.dll_file()))
@@ -1686,21 +1860,24 @@ class PythonInstallComponent(Component):
     def mk_makefile(self, out):
         return
 
+
 def set_key_file(self):
     global DOTNET_KEY_FILE
     # We need to give the assembly a strong name so that it
     # can be installed into the GAC with ``make install``
     if not DOTNET_KEY_FILE is None:
-       self.key_file = DOTNET_KEY_FILE
+        self.key_file = DOTNET_KEY_FILE
 
     if not self.key_file is None:
-       if os.path.isfile(self.key_file):
-           self.key_file = os.path.abspath(self.key_file)
-       elif os.path.isfile(os.path.join(self.src_dir, self.key_file)):
-           self.key_file = os.path.abspath(os.path.join(self.src_dir, self.key_file))
-       else:
-           print("Keyfile '%s' could not be found; %s.dll will be unsigned." % (self.key_file, self.dll_name))
-           self.key_file = None
+        if os.path.isfile(self.key_file):
+            self.key_file = os.path.abspath(self.key_file)
+        elif os.path.isfile(os.path.join(self.src_dir, self.key_file)):
+            self.key_file = os.path.abspath(
+                os.path.join(self.src_dir, self.key_file))
+        else:
+            print("Keyfile '%s' could not be found; %s.dll will be unsigned." %
+                  (self.key_file, self.dll_name))
+            self.key_file = None
 
 
 # build for dotnet core
@@ -1711,10 +1888,9 @@ class DotNetDLLComponent(Component):
             dll_name = name
         if assembly_info_dir is None:
             assembly_info_dir = "."
-        self.dll_name          = dll_name
+        self.dll_name = dll_name
         self.assembly_info_dir = assembly_info_dir
         self.key_file = default_key_file
-
 
     def mk_makefile(self, out):
         if not is_dotnet_core_enabled():
@@ -1724,9 +1900,11 @@ class DotNetDLLComponent(Component):
             cs_fp_files.append(os.path.join(self.to_src_dir, cs_file))
         if self.assembly_info_dir != '.':
             for cs_file in get_cs_files(os.path.join(self.src_dir, self.assembly_info_dir)):
-                cs_fp_files.append(os.path.join(self.to_src_dir, self.assembly_info_dir, cs_file))
+                cs_fp_files.append(os.path.join(
+                    self.to_src_dir, self.assembly_info_dir, cs_file))
         dllfile = '%s.dll' % self.dll_name
-        out.write('%s: %s$(SO_EXT)' % (dllfile, get_component(Z3_DLL_COMPONENT).dll_name))
+        out.write('%s: %s$(SO_EXT)' %
+                  (dllfile, get_component(Z3_DLL_COMPONENT).dll_name))
         for cs_file in cs_fp_files:
             out.write(' ')
             out.write(cs_file)
@@ -1800,7 +1978,6 @@ class DotNetDLLComponent(Component):
         # TBD: is this required for dotnet core given that version numbers are in z3.csproj file?
         return False
 
-
     def mk_win_dist(self, build_path, dist_path):
         if is_dotnet_core_enabled():
             mk_dir(os.path.join(dist_path, INSTALL_BIN_DIR))
@@ -1835,12 +2012,13 @@ class DotNetDLLComponent(Component):
     def mk_uninstall(self, out):
         pass
 
+
 class JavaDLLComponent(Component):
     def __init__(self, name, dll_name, package_name, manifest_file, path, deps):
         Component.__init__(self, name, path, deps)
         if dll_name is None:
             dll_name = name
-        self.dll_name     = dll_name
+        self.dll_name = dll_name
         self.package_name = package_name
         self.manifest_file = manifest_file
         self.install = not is_windows()
@@ -1852,8 +2030,10 @@ class JavaDLLComponent(Component):
         if is_java_enabled():
             mk_dir(os.path.join(BUILD_DIR, 'api', 'java', 'classes'))
             dllfile = '%s$(SO_EXT)' % self.dll_name
-            out.write('libz3java$(SO_EXT): libz3$(SO_EXT) %s\n' % os.path.join(self.to_src_dir, 'Native.cpp'))
-            t = '\t$(CXX) $(CXXFLAGS) $(CXX_OUT_FLAG)api/java/Native$(OBJ_EXT) -I"%s" -I"%s/PLATFORM" -I%s %s/Native.cpp\n' % (JNI_HOME, JNI_HOME, get_component('api').to_src_dir, self.to_src_dir)
+            out.write('libz3java$(SO_EXT): libz3$(SO_EXT) %s\n' %
+                      os.path.join(self.to_src_dir, 'Native.cpp'))
+            t = '\t$(CXX) $(CXXFLAGS) $(CXX_OUT_FLAG)api/java/Native$(OBJ_EXT) -I"%s" -I"%s/PLATFORM" -I%s %s/Native.cpp\n' % (
+                JNI_HOME, JNI_HOME, get_component('api').to_src_dir, self.to_src_dir)
             if IS_OSX:
                 t = t.replace('PLATFORM', 'darwin')
             elif is_linux():
@@ -1875,7 +2055,7 @@ class JavaDLLComponent(Component):
             else:
                 t = t.replace('PLATFORM', 'win32')
             out.write(t)
-            if IS_WINDOWS: # On Windows, CL creates a .lib file to link against.
+            if IS_WINDOWS:  # On Windows, CL creates a .lib file to link against.
                 out.write('\t$(SLINK) $(SLINK_OUT_FLAG)libz3java$(SO_EXT) $(SLINK_FLAGS) %s$(OBJ_EXT) libz3$(LIB_EXT)\n' %
                           os.path.join('api', 'java', 'Native'))
             elif IS_OSX and IS_ARCH_ARM64:
@@ -1889,22 +2069,27 @@ class JavaDLLComponent(Component):
             for jfile in get_java_files(self.src_dir):
                 deps += ('%s ' % os.path.join(self.to_src_dir, jfile))
             for jfile in get_java_files(os.path.join(self.src_dir, "enumerations")):
-                deps += '%s ' % os.path.join(self.to_src_dir, 'enumerations', jfile)
+                deps += '%s ' % os.path.join(self.to_src_dir,
+                                             'enumerations', jfile)
             out.write(deps)
             out.write('\n')
-            #if IS_WINDOWS:
+            # if IS_WINDOWS:
             JAVAC = '"%s"' % JAVAC
             JAR = '"%s"' % JAR
-            t = ('\t%s -source 1.8 -target 1.8 %s.java -d %s\n' % (JAVAC, os.path.join(self.to_src_dir, 'enumerations', '*'), os.path.join('api', 'java', 'classes')))
+            t = ('\t%s -source 1.8 -target 1.8 %s.java -d %s\n' % (JAVAC, os.path.join(
+                self.to_src_dir, 'enumerations', '*'), os.path.join('api', 'java', 'classes')))
             out.write(t)
             t = ('\t%s -source 1.8 -target 1.8 -cp %s %s.java -d %s\n' % (JAVAC,
-                                                  os.path.join('api', 'java', 'classes'),
-                                                  os.path.join(self.to_src_dir, '*'),
-                                                  os.path.join('api', 'java', 'classes')))
+                                                                          os.path.join(
+                                                                              'api', 'java', 'classes'),
+                                                                          os.path.join(
+                                                                              self.to_src_dir, '*'),
+                                                                          os.path.join('api', 'java', 'classes')))
             out.write(t)
             out.write('\t%s cfm %s.jar %s -C %s .\n' % (JAR, self.package_name,
-                                                         os.path.join(self.to_src_dir, 'manifest'),
-                                                         os.path.join('api', 'java', 'classes')))
+                                                        os.path.join(
+                                                            self.to_src_dir, 'manifest'),
+                                                        os.path.join('api', 'java', 'classes')))
             out.write('java: %s.jar\n\n' % self.package_name)
 
     def main_component(self):
@@ -1932,16 +2117,21 @@ class JavaDLLComponent(Component):
     def mk_install(self, out):
         if is_java_enabled() and self.install:
             dllfile = '%s$(SO_EXT)' % self.dll_name
-            MakeRuleCmd.install_files(out, dllfile, os.path.join(INSTALL_LIB_DIR, dllfile))
+            MakeRuleCmd.install_files(
+                out, dllfile, os.path.join(INSTALL_LIB_DIR, dllfile))
             jarfile = '{}.jar'.format(self.package_name)
-            MakeRuleCmd.install_files(out, jarfile, os.path.join(INSTALL_LIB_DIR, jarfile))
+            MakeRuleCmd.install_files(
+                out, jarfile, os.path.join(INSTALL_LIB_DIR, jarfile))
 
     def mk_uninstall(self, out):
         if is_java_enabled() and self.install:
             dllfile = '%s$(SO_EXT)' % self.dll_name
-            MakeRuleCmd.remove_installed_files(out, os.path.join(INSTALL_LIB_DIR, dllfile))
+            MakeRuleCmd.remove_installed_files(
+                out, os.path.join(INSTALL_LIB_DIR, dllfile))
             jarfile = '{}.jar'.format(self.package_name)
-            MakeRuleCmd.remove_installed_files(out, os.path.join(INSTALL_LIB_DIR, jarfile))
+            MakeRuleCmd.remove_installed_files(
+                out, os.path.join(INSTALL_LIB_DIR, jarfile))
+
 
 class MLComponent(Component):
 
@@ -1950,7 +2140,8 @@ class MLComponent(Component):
         if lib_name is None:
             lib_name = name
         self.lib_name = lib_name
-        self.modules = ["z3enums", "z3native", "z3"]  # dependencies in this order!
+        # dependencies in this order!
+        self.modules = ["z3enums", "z3native", "z3"]
         self.stubs = "z3native_stubs"
         self.sub_dir = os.path.join('api', 'ml')
 
@@ -1979,7 +2170,8 @@ class MLComponent(Component):
             raise MKException('Failed to get OCaml destdir')
 
         if not os.path.isdir(self.destdir):
-            raise MKException('The destdir reported by {ocamlfind} ({destdir}) does not exist'.format(ocamlfind=OCAMLFIND, destdir=self.destdir))
+            raise MKException('The destdir reported by {ocamlfind} ({destdir}) does not exist'.format(
+                ocamlfind=OCAMLFIND, destdir=self.destdir))
 
         self.ldconf = check_output([OCAMLFIND, 'printconf', 'ldconf'])
         if self.ldconf == "":
@@ -1987,13 +2179,14 @@ class MLComponent(Component):
 
     def final_info(self):
         if not self._install_bindings():
-            print("WARNING: Could not find ocamlfind utility. OCaml bindings will not be installed")
+            print(
+                "WARNING: Could not find ocamlfind utility. OCaml bindings will not be installed")
 
     def mk_makefile(self, out):
         if is_ml_enabled():
             CP_CMD = 'cp'
             if IS_WINDOWS:
-                CP_CMD='copy'
+                CP_CMD = 'copy'
 
             OCAML_FLAGS = ''
             if DEBUG_MODE:
@@ -2015,7 +2208,8 @@ class MLComponent(Component):
             else:
                 out.write('CXXFLAGS_OCAML=$(subst -std=c++20,,$(CXXFLAGS))\n')
 
-            substitutions = { 'VERSION': "{}.{}.{}.{}".format(VER_MAJOR, VER_MINOR, VER_BUILD, VER_TWEAK) }
+            substitutions = {'VERSION': "{}.{}.{}.{}".format(
+                VER_MAJOR, VER_MINOR, VER_BUILD, VER_TWEAK)}
 
             configure_file(os.path.join(self.src_dir, 'META.in'),
                            os.path.join(BUILD_DIR, self.sub_dir, 'META'),
@@ -2027,7 +2221,8 @@ class MLComponent(Component):
             if STATIC_LIB:
                 z3link = 'z3-static'
                 z3linkdep = base_dll_name + '-static$(LIB_EXT)'
-                out.write('%s: %s\n' % (z3linkdep, base_dll_name + '$(LIB_EXT)'))
+                out.write('%s: %s\n' %
+                          (z3linkdep, base_dll_name + '$(LIB_EXT)'))
                 out.write('\tcp $< $@\n')
             else:
                 z3link = 'z3'
@@ -2047,9 +2242,12 @@ class MLComponent(Component):
                 if (os.path.exists(existing_mli[3:])):
                     out.write('\t%s %s %s\n' % (CP_CMD, existing_mli, mli))
                 else:
-                    out.write('\t%s -i -I %s -c %s > %s\n' % (OCAMLCF, self.sub_dir, ml, mli))
-                out.write('\t%s -I %s -o %s -c %s\n' % (OCAMLCF, self.sub_dir, cmi, mli))
-                out.write('\t%s -I %s -o %s -c %s\n' % (OCAMLCF, self.sub_dir, cmo, ml))
+                    out.write('\t%s -i -I %s -c %s > %s\n' %
+                              (OCAMLCF, self.sub_dir, ml, mli))
+                out.write('\t%s -I %s -o %s -c %s\n' %
+                          (OCAMLCF, self.sub_dir, cmi, mli))
+                out.write('\t%s -I %s -o %s -c %s\n' %
+                          (OCAMLCF, self.sub_dir, cmo, ml))
                 cmos = cmos + cmo + ' '
 
             cmxs = ''
@@ -2057,17 +2255,18 @@ class MLComponent(Component):
                 ff = os.path.join(src_dir, m + '.ml')
                 ft = os.path.join(self.sub_dir, m + '.cmx')
                 out.write('%s: %s %s %s\n' % (ft, ff, cmos, cmxs))
-                out.write('\t%s -I %s -o %s -c %s\n' % (OCAMLOPTF, self.sub_dir, ft, ff))
+                out.write('\t%s -I %s -o %s -c %s\n' %
+                          (OCAMLOPTF, self.sub_dir, ft, ff))
                 cmxs = cmxs + ' ' + ft
-
 
             OCAMLMKLIB = 'ocamlmklib'
 
             LIBZ3 = '-l' + z3link + ' -lstdc++'
-            if is_cygwin() and not(is_cygwin_mingw()):
+            if is_cygwin() and not (is_cygwin_mingw()):
                 LIBZ3 = z3linkdep
 
-            LIBZ3 = LIBZ3 + ' ' + ' '.join(map(lambda x: '-cclib ' + x, LDFLAGS.split()))
+            LIBZ3 = LIBZ3 + ' ' + \
+                ' '.join(map(lambda x: '-cclib ' + x, LDFLAGS.split()))
 
             stubs_install_path = '$$(%s printconf destdir)/stublibs' % OCAMLFIND
             if not STATIC_LIB:
@@ -2075,7 +2274,7 @@ class MLComponent(Component):
                 dllpath = '-dllpath ' + stubs_install_path
                 LIBZ3 = LIBZ3 + ' ' + loadpath + ' ' + dllpath
 
-            if DEBUG_MODE and not(is_cygwin()):
+            if DEBUG_MODE and not (is_cygwin()):
                 # Some ocamlmklib's don't like -g; observed on cygwin, but may be others as well.
                 OCAMLMKLIB += ' -g'
 
@@ -2086,17 +2285,23 @@ class MLComponent(Component):
                 LIBZ3ML = '-oc ' + os.path.join(self.sub_dir, 'z3ml-static')
 
             out.write('%s.cma: %s %s %s\n' % (z3mls, cmos, stubso, z3linkdep))
-            out.write('\t%s -o %s %s -I %s -L. %s %s %s\n' % (OCAMLMKLIB, z3mls, LIBZ3ML, self.sub_dir, stubso, cmos, LIBZ3))
-            out.write('%s.cmxa: %s %s %s %s.cma\n' % (z3mls, cmxs, stubso, z3linkdep, z3mls))
-            out.write('\t%s -o %s %s -I %s -L. %s %s %s\n' % (OCAMLMKLIB, z3mls, LIBZ3ML, self.sub_dir, stubso, cmxs, LIBZ3))
+            out.write('\t%s -o %s %s -I %s -L. %s %s %s\n' %
+                      (OCAMLMKLIB, z3mls, LIBZ3ML, self.sub_dir, stubso, cmos, LIBZ3))
+            out.write('%s.cmxa: %s %s %s %s.cma\n' %
+                      (z3mls, cmxs, stubso, z3linkdep, z3mls))
+            out.write('\t%s -o %s %s -I %s -L. %s %s %s\n' %
+                      (OCAMLMKLIB, z3mls, LIBZ3ML, self.sub_dir, stubso, cmxs, LIBZ3))
             out.write('%s.cmxs: %s.cmxa\n' % (z3mls, z3mls))
-            out.write('\t%s -linkall -shared -o %s.cmxs -I . -I %s %s.cmxa\n' % (OCAMLOPTF, z3mls, self.sub_dir, z3mls))
+            out.write('\t%s -linkall -shared -o %s.cmxs -I . -I %s %s.cmxa\n' %
+                      (OCAMLOPTF, z3mls, self.sub_dir, z3mls))
 
             out.write('\n')
             out.write('ml: %s.cma %s.cmxa %s.cmxs\n' % (z3mls, z3mls, z3mls))
             if IS_OSX:
-                out.write('\tinstall_name_tool -id %s/libz3.dylib libz3.dylib\n' % (stubs_install_path))
-                out.write('\tinstall_name_tool -change libz3.dylib %s/libz3.dylib api/ml/dllz3ml.so\n' % (stubs_install_path))
+                out.write(
+                    '\tinstall_name_tool -id %s/libz3.dylib libz3.dylib\n' % (stubs_install_path))
+                out.write(
+                    '\tinstall_name_tool -change libz3.dylib %s/libz3.dylib api/ml/dllz3ml.so\n' % (stubs_install_path))
             out.write('\n')
 
             if IS_WINDOWS:
@@ -2144,7 +2349,8 @@ class MLComponent(Component):
                     out.write(' ' + os.path.join(self.sub_dir, m) + '.mli')
                 out.write(' ' + os.path.join(self.sub_dir, m) + '.cmi')
                 out.write(' ' + os.path.join(self.sub_dir, m) + '.cmx')
-            out.write(' %s' % ((os.path.join(self.sub_dir, 'libz3ml$(LIB_EXT)'))))
+            out.write(' %s' %
+                      ((os.path.join(self.sub_dir, 'libz3ml$(LIB_EXT)'))))
             out.write(' %s' % ((os.path.join(self.sub_dir, 'z3ml$(LIB_EXT)'))))
             out.write(' %s' % ((os.path.join(self.sub_dir, 'z3ml.cma'))))
             out.write(' %s' % ((os.path.join(self.sub_dir, 'z3ml.cmxa'))))
@@ -2153,7 +2359,7 @@ class MLComponent(Component):
             if is_windows() or is_cygwin_mingw() or is_msys2():
                 out.write('.dll')
             else:
-                out.write('.so') # .so also on OSX!
+                out.write('.so')  # .so also on OSX!
             out.write('\n')
 
     def mk_uninstall(self, out):
@@ -2167,14 +2373,16 @@ class MLComponent(Component):
     def main_component(self):
         return is_ml_enabled()
 
+
 class ExampleComponent(Component):
     def __init__(self, name, path):
         Component.__init__(self, name, path, [])
-        self.ex_dir   = os.path.join(EXAMPLE_DIR, self.path)
+        self.ex_dir = os.path.join(EXAMPLE_DIR, self.path)
         self.to_ex_dir = os.path.join(REV_BUILD_DIR, self.ex_dir)
 
     def is_example(self):
         return True
+
 
 class CppExampleComponent(ExampleComponent):
     def __init__(self, name, path):
@@ -2194,8 +2402,10 @@ class CppExampleComponent(ExampleComponent):
         for cppfile in self.src_files():
             objfile = '%s$(OBJ_EXT)' % (cppfile[:cppfile.rfind('.')])
             objfiles = objfiles + ('%s ' % objfile)
-            out.write('%s: %s\n' % (objfile, os.path.join(self.to_ex_dir, cppfile)));
-            out.write('\t%s $(CXXFLAGS) $(OS_DEFINES) $(EXAMP_DEBUG_FLAG) $(CXX_OUT_FLAG)%s $(LINK_FLAGS)' % (self.compiler(), objfile))
+            out.write('%s: %s\n' %
+                      (objfile, os.path.join(self.to_ex_dir, cppfile)))
+            out.write('\t%s $(CXXFLAGS) $(OS_DEFINES) $(EXAMP_DEBUG_FLAG) $(CXX_OUT_FLAG)%s $(LINK_FLAGS)' % (
+                self.compiler(), objfile))
             # Add include dir components
             out.write(' -I%s' % get_component(API_COMPONENT).to_src_dir)
             out.write(' -I%s' % get_component(CPP_COMPONENT).to_src_dir)
@@ -2204,13 +2414,15 @@ class CppExampleComponent(ExampleComponent):
 
         exefile = '%s$(EXE_EXT)' % self.name
         out.write('%s: %s %s\n' % (exefile, dll, objfiles))
-        out.write('\t$(LINK) $(LINK_OUT_FLAG)%s $(LINK_FLAGS) %s ' % (exefile, objfiles))
+        out.write('\t$(LINK) $(LINK_OUT_FLAG)%s $(LINK_FLAGS) %s ' %
+                  (exefile, objfiles))
         if IS_WINDOWS:
             out.write('%s.lib' % dll_name)
         else:
             out.write(dll)
         out.write(' $(LINK_EXTRA_FLAGS)\n')
         out.write('_ex_%s: %s\n\n' % (self.name, exefile))
+
 
 class CExampleComponent(CppExampleComponent):
     def __init__(self, name, path):
@@ -2230,21 +2442,25 @@ class CExampleComponent(CppExampleComponent):
         for cfile in self.src_files():
             objfile = '%s$(OBJ_EXT)' % (cfile[:cfile.rfind('.')])
             objfiles = objfiles + ('%s ' % objfile)
-            out.write('%s: %s\n' % (objfile, os.path.join(self.to_ex_dir, cfile)));
-            out.write('\t%s $(CFLAGS) $(OS_DEFINES) $(EXAMP_DEBUG_FLAG) $(C_OUT_FLAG)%s $(LINK_FLAGS)' % (self.compiler(), objfile))
+            out.write('%s: %s\n' %
+                      (objfile, os.path.join(self.to_ex_dir, cfile)))
+            out.write('\t%s $(CFLAGS) $(OS_DEFINES) $(EXAMP_DEBUG_FLAG) $(C_OUT_FLAG)%s $(LINK_FLAGS)' % (
+                self.compiler(), objfile))
             out.write(' -I%s' % get_component(API_COMPONENT).to_src_dir)
             out.write(' %s' % os.path.join(self.to_ex_dir, cfile))
             out.write('\n')
 
         exefile = '%s$(EXE_EXT)' % self.name
         out.write('%s: %s %s\n' % (exefile, dll, objfiles))
-        out.write('\t$(LINK) $(LINK_OUT_FLAG)%s $(LINK_FLAGS) %s ' % (exefile, objfiles))
+        out.write('\t$(LINK) $(LINK_OUT_FLAG)%s $(LINK_FLAGS) %s ' %
+                  (exefile, objfiles))
         if IS_WINDOWS:
             out.write('%s.lib' % dll_name)
         else:
             out.write(dll)
         out.write(' $(LINK_EXTRA_FLAGS)\n')
         out.write('_ex_%s: %s\n\n' % (self.name, exefile))
+
 
 class DotNetExampleComponent(ExampleComponent):
     def __init__(self, name, path):
@@ -2297,6 +2513,7 @@ class DotNetExampleComponent(ExampleComponent):
             MakeRuleCmd.write_cmd(out, ' '.join(dotnetCmdLine))
             out.write('\n')
 
+
 class JavaExampleComponent(ExampleComponent):
     def __init__(self, name, path):
         ExampleComponent.__init__(self, name, path)
@@ -2322,6 +2539,7 @@ class JavaExampleComponent(ExampleComponent):
             out.write(' -d .\n')
             out.write('_ex_%s: JavaExample.class\n\n' % (self.name))
 
+
 class MLExampleComponent(ExampleComponent):
     def __init__(self, name, path):
         ExampleComponent.__init__(self, name, path)
@@ -2338,7 +2556,8 @@ class MLExampleComponent(ExampleComponent):
             out.write('\tocamlfind %s ' % OCAMLC)
             if DEBUG_MODE:
                 out.write('-g ')
-            out.write('-custom -o ml_example.byte -package zarith -I api/ml -cclib "-L. -lpthread -lstdc++ -lz3" -linkpkg z3ml.cma')
+            out.write(
+                '-custom -o ml_example.byte -package zarith -I api/ml -cclib "-L. -lpthread -lstdc++ -lz3" -linkpkg z3ml.cma')
             for mlfile in get_ml_files(self.ex_dir):
                 out.write(' %s/%s' % (self.to_ex_dir, mlfile))
             out.write('\n')
@@ -2349,11 +2568,13 @@ class MLExampleComponent(ExampleComponent):
             out.write('\tocamlfind %s ' % OCAMLOPT)
             if DEBUG_MODE:
                 out.write('-g ')
-            out.write('-o ml_example$(EXE_EXT) -package zarith -I api/ml -cclib "-L. -lpthread -lstdc++ -lz3" -linkpkg z3ml.cmxa')
+            out.write(
+                '-o ml_example$(EXE_EXT) -package zarith -I api/ml -cclib "-L. -lpthread -lstdc++ -lz3" -linkpkg z3ml.cmxa')
             for mlfile in get_ml_files(self.ex_dir):
                 out.write(' %s/%s' % (self.to_ex_dir, mlfile))
             out.write('\n')
-            out.write('_ex_%s: ml_example.byte ml_example$(EXE_EXT)\n\n' % self.name)
+            out.write(
+                '_ex_%s: ml_example.byte ml_example$(EXE_EXT)\n\n' % self.name)
 
         debug_opt = '-g ' if DEBUG_MODE else ''
 
@@ -2377,15 +2598,18 @@ class MLExampleComponent(ExampleComponent):
             for mlfile in get_ml_files(self.ex_dir):
                 out.write(' %s' % os.path.join(self.to_ex_dir, mlfile))
             out.write('\n')
-            out.write('\tocamlfind %s -o %s %s %s ' % (ocaml_compiler, debug_opt, testname, opam_z3_opts))
+            out.write('\tocamlfind %s -o %s %s %s ' %
+                      (ocaml_compiler, debug_opt, testname, opam_z3_opts))
             for mlfile in get_ml_files(self.ex_dir):
                 out.write(' %s/%s' % (self.to_ex_dir, mlfile))
             out.write('\n')
 
         if STATIC_LIB:
-            out.write('_ex_ml_example_post_install: ml_example_static.byte ml_example_static_custom.byte ml_example_static$(EXE_EXT)\n')
+            out.write(
+                '_ex_ml_example_post_install: ml_example_static.byte ml_example_static_custom.byte ml_example_static$(EXE_EXT)\n')
         else:
-            out.write('_ex_ml_example_post_install: ml_example_shared.byte ml_example_shared_custom.byte ml_example_shared$(EXE_EXT)\n')
+            out.write(
+                '_ex_ml_example_post_install: ml_example_shared.byte ml_example_shared_custom.byte ml_example_shared$(EXE_EXT)\n')
 
         out.write('\n')
 
@@ -2399,9 +2623,11 @@ class PythonExampleComponent(ExampleComponent):
     def mk_makefile(self, out):
         full = os.path.join(EXAMPLE_DIR, self.path)
         for py in filter(lambda f: f.endswith('.py'), os.listdir(full)):
-            shutil.copyfile(os.path.join(full, py), os.path.join(BUILD_DIR, 'python', py))
+            shutil.copyfile(os.path.join(full, py),
+                            os.path.join(BUILD_DIR, 'python', py))
             if is_verbose():
-                print("Copied Z3Py example '%s' to '%s'" % (py, os.path.join(BUILD_DIR, 'python')))
+                print("Copied Z3Py example '%s' to '%s'" %
+                      (py, os.path.join(BUILD_DIR, 'python')))
         out.write('_ex_%s: \n\n' % self.name)
 
     def mk_win_dist(self, build_path, dist_path):
@@ -2424,77 +2650,99 @@ def reg_component(name, c):
     if VERBOSE:
         print("New component: '%s'" % name)
 
+
 def add_lib(name, deps=[], path=None, includes2install=[]):
     c = LibComponent(name, path, deps, includes2install)
     reg_component(name, c)
+
 
 def add_clib(name, deps=[], path=None, includes2install=[]):
     c = CLibComponent(name, path, deps, includes2install)
     reg_component(name, c)
 
+
 def add_hlib(name, path=None, includes2install=[]):
     c = HLibComponent(name, path, includes2install)
     reg_component(name, c)
+
 
 def add_exe(name, deps=[], path=None, exe_name=None, install=True):
     c = ExeComponent(name, exe_name, path, deps, install)
     reg_component(name, c)
 
+
 def add_extra_exe(name, deps=[], path=None, exe_name=None, install=True):
     c = ExtraExeComponent(name, exe_name, path, deps, install)
     reg_component(name, c)
 
+
 def add_dll(name, deps=[], path=None, dll_name=None, export_files=[], reexports=[], install=True, static=False, staging_link=None):
-    c = DLLComponent(name, dll_name, path, deps, export_files, reexports, install, static, staging_link)
+    c = DLLComponent(name, dll_name, path, deps, export_files,
+                     reexports, install, static, staging_link)
     reg_component(name, c)
     return c
 
+
 def add_dot_net_core_dll(name, deps=[], path=None, dll_name=None, assembly_info_dir=None, default_key_file=None):
-    c = DotNetDLLComponent(name, dll_name, path, deps, assembly_info_dir, default_key_file)
+    c = DotNetDLLComponent(name, dll_name, path, deps,
+                           assembly_info_dir, default_key_file)
     reg_component(name, c)
 
+
 def add_java_dll(name, deps=[], path=None, dll_name=None, package_name=None, manifest_file=None):
-    c = JavaDLLComponent(name, dll_name, package_name, manifest_file, path, deps)
+    c = JavaDLLComponent(name, dll_name, package_name,
+                         manifest_file, path, deps)
     reg_component(name, c)
+
 
 def add_python(libz3Component):
     name = 'python'
     reg_component(name, PythonComponent(name, libz3Component))
 
+
 def add_js():
     reg_component('js', JsComponent())
+
 
 def add_python_install(libz3Component):
     name = 'python_install'
     reg_component(name, PythonInstallComponent(name, libz3Component))
 
+
 def add_ml_lib(name, deps=[], path=None, lib_name=None):
     c = MLComponent(name, lib_name, path, deps)
     reg_component(name, c)
+
 
 def add_cpp_example(name, path=None):
     c = CppExampleComponent(name, path)
     reg_component(name, c)
 
+
 def add_c_example(name, path=None):
     c = CExampleComponent(name, path)
     reg_component(name, c)
+
 
 def add_dotnet_example(name, path=None):
     c = DotNetExampleComponent(name, path)
     reg_component(name, c)
 
+
 def add_java_example(name, path=None):
     c = JavaExampleComponent(name, path)
     reg_component(name, c)
+
 
 def add_ml_example(name, path=None):
     c = MLExampleComponent(name, path)
     reg_component(name, c)
 
+
 def add_z3py_example(name, path=None):
     c = PythonExampleComponent(name, path)
     reg_component(name, c)
+
 
 def mk_config():
     if ONLY_MAKEFILES:
@@ -2558,7 +2806,7 @@ def mk_config():
                     'SLINK_EXTRA_FLAGS=/link /PROFILE /DEBUG:full /MACHINE:X86 /SUBSYSTEM:WINDOWS /INCREMENTAL:NO /STACK:8388608 /OPT:REF /OPT:ICF /TLBID:1 %s %s\n' % (link_extra_opt, maybe_disable_dynamic_base, link_extra_opt))
         else:
             # Windows Release mode
-            LTCG=' /LTCG' if SLOW_OPTIMIZE else ''
+            LTCG = ' /LTCG' if SLOW_OPTIMIZE else ''
             GL = ' /GL' if SLOW_OPTIMIZE else ''
             config.write(
                 'AR_FLAGS=/nologo %s\n'
@@ -2600,19 +2848,19 @@ def mk_config():
         ARITH = "internal"
         check_ar()
         CXX = find_cxx_compiler()
-        CC  = find_c_compiler()
+        CC = find_c_compiler()
         SLIBEXTRAFLAGS = ''
 #       SLIBEXTRAFLAGS = '%s -Wl,-soname,libz3.so.0' % LDFLAGS
         EXE_EXT = ''
         LIB_EXT = '.a'
         if GPROF:
             CXXFLAGS = '%s -pg' % CXXFLAGS
-            LDFLAGS  = '%s -pg' % LDFLAGS
+            LDFLAGS = '%s -pg' % LDFLAGS
         if GMP:
             test_gmp(CXX)
             ARITH = "gmp"
             CPPFLAGS = '%s -D_MP_GMP' % CPPFLAGS
-            LDFLAGS  = '%s -lgmp' % LDFLAGS
+            LDFLAGS = '%s -lgmp' % LDFLAGS
             SLIBEXTRAFLAGS = '%s -lgmp' % SLIBEXTRAFLAGS
         else:
             CPPFLAGS = '%s -D_MP_INTERNAL' % CPPFLAGS
@@ -2624,66 +2872,66 @@ def mk_config():
         CXXFLAGS = '%s %s' % (CXXFLAGS, FPMATH_FLAGS)
         atomic_required = test_atomic_required(CXX)
         if atomic_required:
-            LDFLAGS  = '%s -latomic' % LDFLAGS
+            LDFLAGS = '%s -latomic' % LDFLAGS
         if LOG_SYNC:
             CXXFLAGS = '%s -DZ3_LOG_SYNC' % CXXFLAGS
         if SINGLE_THREADED:
             CXXFLAGS = '%s -DSINGLE_THREAD' % CXXFLAGS
         if DEBUG_MODE:
-            CXXFLAGS     = '%s -g -Wall' % CXXFLAGS
+            CXXFLAGS = '%s -g -Wall' % CXXFLAGS
             EXAMP_DEBUG_FLAG = '-g'
-            CPPFLAGS     = '%s -DZ3DEBUG -D_DEBUG' % CPPFLAGS
+            CPPFLAGS = '%s -DZ3DEBUG -D_DEBUG' % CPPFLAGS
         else:
-            CXXFLAGS     = '%s -O3' % CXXFLAGS
+            CXXFLAGS = '%s -O3' % CXXFLAGS
             if GPROF:
-                CXXFLAGS     += '-fomit-frame-pointer'
-            CPPFLAGS     = '%s -DNDEBUG -D_EXTERNAL_RELEASE' % CPPFLAGS
+                CXXFLAGS += '-fomit-frame-pointer'
+            CPPFLAGS = '%s -DNDEBUG -D_EXTERNAL_RELEASE' % CPPFLAGS
         if is_CXX_clangpp():
-            CXXFLAGS   = '%s -Wno-unknown-pragmas -Wno-overloaded-virtual -Wno-unused-value' % CXXFLAGS
+            CXXFLAGS = '%s -Wno-unknown-pragmas -Wno-overloaded-virtual -Wno-unused-value' % CXXFLAGS
         sysname, _, _, _, machine = os.uname()
         if sysname == 'Darwin':
-            SO_EXT         = '.dylib'
-            SLIBFLAGS      = '-dynamiclib'
+            SO_EXT = '.dylib'
+            SLIBFLAGS = '-dynamiclib'
         elif sysname == 'Linux':
-            SO_EXT         = '.so'
-            SLIBFLAGS      = '-shared'
+            SO_EXT = '.so'
+            SLIBFLAGS = '-shared'
             SLIBEXTRAFLAGS = '%s -Wl,-soname,libz3.so' % SLIBEXTRAFLAGS
         elif sysname == 'GNU':
-            SO_EXT         = '.so'
-            SLIBFLAGS      = '-shared'
+            SO_EXT = '.so'
+            SLIBFLAGS = '-shared'
         elif sysname == 'FreeBSD':
-            SO_EXT         = '.so'
-            SLIBFLAGS      = '-shared'
+            SO_EXT = '.so'
+            SLIBFLAGS = '-shared'
             SLIBEXTRAFLAGS = '%s -Wl,-soname,libz3.so' % SLIBEXTRAFLAGS
         elif sysname == 'NetBSD':
-            SO_EXT         = '.so'
-            SLIBFLAGS      = '-shared'
+            SO_EXT = '.so'
+            SLIBFLAGS = '-shared'
         elif sysname == 'OpenBSD':
-            SO_EXT         = '.so'
-            SLIBFLAGS      = '-shared'
-        elif sysname  == 'SunOS':
-            SO_EXT         = '.so'
-            SLIBFLAGS      = '-shared'
+            SO_EXT = '.so'
+            SLIBFLAGS = '-shared'
+        elif sysname == 'SunOS':
+            SO_EXT = '.so'
+            SLIBFLAGS = '-shared'
             SLIBEXTRAFLAGS = '%s -mimpure-text' % SLIBEXTRAFLAGS
         elif sysname.startswith('CYGWIN'):
-            SO_EXT         = '.dll'
-            SLIBFLAGS      = '-shared'
+            SO_EXT = '.dll'
+            SLIBFLAGS = '-shared'
         elif sysname.startswith('MSYS_NT') or sysname.startswith('MINGW'):
-            SO_EXT         = '.dll'
-            SLIBFLAGS      = '-shared'
-            EXE_EXT        = '.exe'
-            LIB_EXT        = '.lib'
+            SO_EXT = '.dll'
+            SLIBFLAGS = '-shared'
+            EXE_EXT = '.exe'
+            LIB_EXT = '.lib'
         else:
             raise MKException('Unsupported platform: %s' % sysname)
         if is64():
             if not sysname.startswith('CYGWIN') and not sysname.startswith('MSYS') and not sysname.startswith('MINGW'):
-                CXXFLAGS     = '%s -fPIC' % CXXFLAGS
+                CXXFLAGS = '%s -fPIC' % CXXFLAGS
         elif not LINUX_X64:
-            CXXFLAGS     = '%s -m32' % CXXFLAGS
-            LDFLAGS      = '%s -m32' % LDFLAGS
-            SLIBFLAGS    = '%s -m32' % SLIBFLAGS
+            CXXFLAGS = '%s -m32' % CXXFLAGS
+            LDFLAGS = '%s -m32' % LDFLAGS
+            SLIBFLAGS = '%s -m32' % SLIBFLAGS
         if TRACE or DEBUG_MODE:
-            CPPFLAGS     = '%s -D_TRACE' % CPPFLAGS
+            CPPFLAGS = '%s -D_TRACE' % CPPFLAGS
         if is_cygwin_mingw() or is_msys2():
             # when cross-compiling with MinGW, we need to statically link its standard libraries
             # and to make it create an import library.
@@ -2701,7 +2949,8 @@ def mk_config():
         config.write('CC=%s\n' % CC)
         config.write('CXX=%s\n' % CXX)
         config.write('CXXFLAGS=%s %s\n' % (CPPFLAGS, CXXFLAGS))
-        config.write('CFLAGS=%s %s\n' % (CPPFLAGS, CXXFLAGS.replace('-std=c++20', '')))
+        config.write('CFLAGS=%s %s\n' %
+                     (CPPFLAGS, CXXFLAGS.replace('-std=c++20', '')))
         config.write('EXAMP_DEBUG_FLAG=%s\n' % EXAMP_DEBUG_FLAG)
         config.write('CXX_OUT_FLAG=-o \n')
         config.write('C_OUT_FLAG=-o \n')
@@ -2715,7 +2964,8 @@ def mk_config():
         config.write('LINK_FLAGS=\n')
         config.write('LINK_OUT_FLAG=-o \n')
         if is_linux() and (build_static_lib() or build_static_bin()):
-            config.write('LINK_EXTRA_FLAGS=-Wl,--whole-archive -lrt -lpthread -Wl,--no-whole-archive %s\n' % LDFLAGS)
+            config.write(
+                'LINK_EXTRA_FLAGS=-Wl,--whole-archive -lrt -lpthread -Wl,--no-whole-archive %s\n' % LDFLAGS)
         else:
             config.write('LINK_EXTRA_FLAGS=-lpthread %s\n' % LDFLAGS)
         config.write('SO_EXT=%s\n' % SO_EXT)
@@ -2735,7 +2985,8 @@ def mk_config():
             print('Prefix:         %s' % PREFIX)
             print('64-bit:         %s' % is64())
             print('FP math:        %s' % FPMATH)
-            print('libatomic:      %s' % ('required' if atomic_required else 'not required'))
+            print('libatomic:      %s' %
+                  ('required' if atomic_required else 'not required'))
             print("Python pkg dir: %s" % PYTHON_PACKAGE_DIR)
             if GPROF:
                 print('gprof:          enabled')
@@ -2753,6 +3004,7 @@ def mk_config():
 
     config.close()
 
+
 def mk_install(out):
     out.write('install: ')
     for c in get_components():
@@ -2767,6 +3019,7 @@ def mk_install(out):
     out.write('\t@echo Z3 was successfully installed.\n')
     out.write('\n')
 
+
 def mk_uninstall(out):
     out.write('uninstall:\n')
     for c in get_components():
@@ -2775,6 +3028,8 @@ def mk_uninstall(out):
     out.write('\n')
 
 # Generate the Z3 makefile
+
+
 def mk_makefile():
     mk_dir(BUILD_DIR)
     mk_config()
@@ -2789,11 +3044,14 @@ def mk_makefile():
         if c.main_component():
             out.write(' %s' % c.name)
     out.write('\n\t@echo Z3 was successfully built.\n')
-    out.write("\t@echo \"Z3Py scripts can already be executed in the \'%s\' directory.\"\n" % os.path.join(BUILD_DIR, 'python'))
+    out.write("\t@echo \"Z3Py scripts can already be executed in the \'%s\' directory.\"\n" %
+              os.path.join(BUILD_DIR, 'python'))
     pathvar = "DYLD_LIBRARY_PATH" if IS_OSX else "PATH" if IS_WINDOWS else "LD_LIBRARY_PATH"
-    out.write("\t@echo \"Z3Py scripts stored in arbitrary directories can be executed if the \'%s\' directory is added to the PYTHONPATH environment variable and the \'%s\' directory is added to the %s environment variable.\"\n" % (os.path.join(BUILD_DIR, 'python'), BUILD_DIR, pathvar))
+    out.write("\t@echo \"Z3Py scripts stored in arbitrary directories can be executed if the \'%s\' directory is added to the PYTHONPATH environment variable and the \'%s\' directory is added to the %s environment variable.\"\n" %
+              (os.path.join(BUILD_DIR, 'python'), BUILD_DIR, pathvar))
     if not IS_WINDOWS:
-        out.write("\t@echo Use the following command to install Z3 at prefix $(PREFIX).\n")
+        out.write(
+            "\t@echo Use the following command to install Z3 at prefix $(PREFIX).\n")
         out.write('\t@echo "    sudo make install"\n\n')
         # out.write("\t@echo If you are doing a staged install you can use DESTDIR.\n")
         # out.write('\t@echo "    make DESTDIR=/some/temp/directory install"\n')
@@ -2823,19 +3081,25 @@ def mk_makefile():
         if IS_WINDOWS:
             if VS_X64:
                 print("  platform: x64\n")
-                print("To build Z3, open a [Visual Studio x64 Command Prompt], then")
+                print(
+                    "To build Z3, open a [Visual Studio x64 Command Prompt], then")
             elif VS_ARM:
                 print("  platform: ARM\n")
-                print("To build Z3, open a [Visual Studio ARM Command Prompt], then")
+                print(
+                    "To build Z3, open a [Visual Studio ARM Command Prompt], then")
             else:
                 print("  platform: x86")
-                print("To build Z3, open a [Visual Studio Command Prompt], then")
-            print("type 'cd %s && nmake'\n" % os.path.join(os.getcwd(), BUILD_DIR))
+                print(
+                    "To build Z3, open a [Visual Studio Command Prompt], then")
+            print("type 'cd %s && nmake'\n" %
+                  os.path.join(os.getcwd(), BUILD_DIR))
             print('Remark: to open a Visual Studio Command Prompt, go to: "Start > All Programs > Visual Studio > Visual Studio Tools"')
         else:
             print("Type 'cd %s; make' to build Z3" % BUILD_DIR)
 
 # Generate automatically generated source code
+
+
 def mk_auto_src():
     if not ONLY_MAKEFILES:
         exec_pyg_scripts()
@@ -2853,40 +3117,50 @@ def _execfile(file, globals=globals(), locals=locals()):
             exec(fh.read()+"\n", globals, locals)
 
 # Execute python auxiliary scripts that generate extra code for Z3.
+
+
 def exec_pyg_scripts():
     for root, dirs, files in os.walk('src'):
         for f in files:
             if f.endswith('.pyg'):
                 script = os.path.join(root, f)
-                generated_file = mk_genfile_common.mk_hpp_from_pyg(script, root)
+                generated_file = mk_genfile_common.mk_hpp_from_pyg(
+                    script, root)
                 if is_verbose():
                     print("Generated '{}'".format(generated_file))
 
 # TODO: delete after src/ast/pattern/expr_pattern_match
 # database.smt ==> database.h
+
+
 def mk_pat_db():
     c = get_component(PATTERN_COMPONENT)
-    fin  = os.path.join(c.src_dir, 'database.smt2')
+    fin = os.path.join(c.src_dir, 'database.smt2')
     fout = os.path.join(c.src_dir, 'database.h')
     mk_genfile_common.mk_pat_db_internal(fin, fout)
     if VERBOSE:
         print("Generated '{}'".format(fout))
 
 # Update version numbers
+
+
 def update_version():
     major = VER_MAJOR
     minor = VER_MINOR
     build = VER_BUILD
     revision = VER_TWEAK
 
-    print("UpdateVersion:", get_full_version_string(major, minor, build, revision))
+    print("UpdateVersion:", get_full_version_string(
+        major, minor, build, revision))
 
     if major is None or minor is None or build is None or revision is None:
-        raise MKException("set_version(major, minor, build, revision) must be used before invoking update_version()")
+        raise MKException(
+            "set_version(major, minor, build, revision) must be used before invoking update_version()")
     if not ONLY_MAKEFILES:
         mk_version_dot_h(major, minor, build, revision)
         mk_all_assembly_infos(major, minor, build, revision)
         mk_def_files()
+
 
 def get_full_version_string(major, minor, build, revision):
     global GIT_HASH, GIT_DESCRIBE
@@ -2899,6 +3173,8 @@ def get_full_version_string(major, minor, build, revision):
     return '"' + res + '"'
 
 # Update files with the version number
+
+
 def mk_version_dot_h(major, minor, build, revision):
     c = get_component(UTIL_COMPONENT)
     version_template = os.path.join(c.src_dir, 'z3_version.h.in')
@@ -2907,30 +3183,36 @@ def mk_version_dot_h(major, minor, build, revision):
     # builds system. If you change these you should change them
     # in the CMake build too
     configure_file(version_template, version_header_output,
-        { 'Z3_VERSION_MAJOR': str(major),
-          'Z3_VERSION_MINOR': str(minor),
-          'Z3_VERSION_PATCH': str(build),
-          'Z3_VERSION_TWEAK': str(revision),
-          'Z3_FULL_VERSION': get_full_version_string(major, minor, build, revision)
-        }
-    )
+                   {'Z3_VERSION_MAJOR': str(major),
+                    'Z3_VERSION_MINOR': str(minor),
+                    'Z3_VERSION_PATCH': str(build),
+                    'Z3_VERSION_TWEAK': str(revision),
+                    'Z3_FULL_VERSION': get_full_version_string(major, minor, build, revision)
+                    }
+                   )
     if VERBOSE:
         print("Generated '%s'" % version_header_output)
 
 # Generate AssemblyInfo.cs files with the right version numbers by using ``AssemblyInfo.cs.in`` files as a template
+
+
 def mk_all_assembly_infos(major, minor, build, revision):
     for c in get_components():
         if c.has_assembly_info():
             c.make_assembly_info(major, minor, build, revision)
 
+
 def get_header_files_for_components(component_src_dirs):
     assert isinstance(component_src_dirs, list)
     h_files_full_path = []
     for component_src_dir in sorted(component_src_dirs):
-        h_files = filter(lambda f: f.endswith('.h') or f.endswith('.hpp'), os.listdir(component_src_dir))
-        h_files = list(map(lambda p: os.path.join(component_src_dir, p), h_files))
+        h_files = filter(lambda f: f.endswith('.h') or f.endswith(
+            '.hpp'), os.listdir(component_src_dir))
+        h_files = list(map(lambda p: os.path.join(
+            component_src_dir, p), h_files))
         h_files_full_path.extend(h_files)
     return h_files_full_path
+
 
 def mk_install_tactic_cpp(cnames, path):
     component_src_dirs = []
@@ -2939,9 +3221,11 @@ def mk_install_tactic_cpp(cnames, path):
         c = get_component(cname)
         component_src_dirs.append(c.src_dir)
     h_files_full_path = get_header_files_for_components(component_src_dirs)
-    generated_file = mk_genfile_common.mk_install_tactic_cpp_internal(h_files_full_path, path)
+    generated_file = mk_genfile_common.mk_install_tactic_cpp_internal(
+        h_files_full_path, path)
     if VERBOSE:
         print("Generated '{}'".format(generated_file))
+
 
 def mk_all_install_tactic_cpps():
     if not ONLY_MAKEFILES:
@@ -2952,15 +3236,18 @@ def mk_all_install_tactic_cpps():
                 cnames.append(c.name)
                 mk_install_tactic_cpp(cnames, c.src_dir)
 
+
 def mk_mem_initializer_cpp(cnames, path):
     component_src_dirs = []
     for cname in cnames:
         c = get_component(cname)
         component_src_dirs.append(c.src_dir)
     h_files_full_path = get_header_files_for_components(component_src_dirs)
-    generated_file = mk_genfile_common.mk_mem_initializer_cpp_internal(h_files_full_path, path)
+    generated_file = mk_genfile_common.mk_mem_initializer_cpp_internal(
+        h_files_full_path, path)
     if VERBOSE:
         print("Generated '{}'".format(generated_file))
+
 
 def mk_all_mem_initializer_cpps():
     if not ONLY_MAKEFILES:
@@ -2971,15 +3258,18 @@ def mk_all_mem_initializer_cpps():
                 cnames.append(c.name)
                 mk_mem_initializer_cpp(cnames, c.src_dir)
 
+
 def mk_gparams_register_modules(cnames, path):
     component_src_dirs = []
     for cname in cnames:
         c = get_component(cname)
         component_src_dirs.append(c.src_dir)
     h_files_full_path = get_header_files_for_components(component_src_dirs)
-    generated_file = mk_genfile_common.mk_gparams_register_modules_internal(h_files_full_path, path)
+    generated_file = mk_genfile_common.mk_gparams_register_modules_internal(
+        h_files_full_path, path)
     if VERBOSE:
         print("Generated '{}'".format(generated_file))
+
 
 def mk_all_gparams_register_modules():
     if not ONLY_MAKEFILES:
@@ -2991,6 +3281,8 @@ def mk_all_gparams_register_modules():
                 mk_gparams_register_modules(cnames, c.src_dir)
 
 # Generate a .def based on the files at c.export_files slot.
+
+
 def mk_def_file(c):
     defname = '%s.def' % os.path.join(c.src_dir, c.name)
     dll_name = c.dll_name
@@ -2999,15 +3291,18 @@ def mk_def_file(c):
         dot_h_c = c.find_file(dot_h, c.name)
         api = os.path.join(dot_h_c.src_dir, dot_h)
         export_header_files.append(api)
-    mk_genfile_common.mk_def_file_internal(defname, dll_name, export_header_files)
+    mk_genfile_common.mk_def_file_internal(
+        defname, dll_name, export_header_files)
     if VERBOSE:
         print("Generated '%s'" % defname)
+
 
 def mk_def_files():
     if not ONLY_MAKEFILES:
         for c in get_components():
             if c.require_def_file():
                 mk_def_file(c)
+
 
 def cp_z3py_to_build():
     mk_dir(BUILD_DIR)
@@ -3024,7 +3319,8 @@ def cp_z3py_to_build():
     # so we disable it temporarily. This is an issue with recent versions of MacOS
     # where XCode's Python has a cache, but the build scripts don't have access to
     # it (e.g. during OPAM package installation).
-    have_cache = hasattr(sys, 'pycache_prefix') and sys.pycache_prefix is not None
+    have_cache = hasattr(
+        sys, 'pycache_prefix') and sys.pycache_prefix is not None
     if have_cache:
         pycache_prefix_before = sys.pycache_prefix
         sys.pycache_prefix = None
@@ -3038,12 +3334,14 @@ def cp_z3py_to_build():
     # Copy sources to build
     mk_dir(z3py_dest)
     for py in filter(lambda f: f.endswith('.py'), os.listdir(z3py_src)):
-        shutil.copyfile(os.path.join(z3py_src, py), os.path.join(z3py_dest, py))
+        shutil.copyfile(os.path.join(z3py_src, py),
+                        os.path.join(z3py_dest, py))
         if is_verbose():
             print("Copied '%s'" % py)
     # Python 2.x support
     for pyc in filter(lambda f: f.endswith('.pyc'), os.listdir(z3py_src)):
-        shutil.copyfile(os.path.join(z3py_src, pyc), os.path.join(z3py_dest, pyc))
+        shutil.copyfile(os.path.join(z3py_src, pyc),
+                        os.path.join(z3py_dest, pyc))
         if is_verbose():
             print("Copied '%s'" % pyc)
     # Python 3.x support
@@ -3052,11 +3350,14 @@ def cp_z3py_to_build():
     if os.path.exists(src_pycache):
         for pyc in filter(lambda f: f.endswith('.pyc'), os.listdir(src_pycache)):
             mk_dir(target_pycache)
-            shutil.copyfile(os.path.join(src_pycache, pyc), os.path.join(target_pycache, pyc))
+            shutil.copyfile(os.path.join(src_pycache, pyc),
+                            os.path.join(target_pycache, pyc))
             if is_verbose():
                 print("Copied '%s'" % pyc)
     # Copy z3test.py
-    shutil.copyfile(os.path.join(Z3PY_SRC_DIR, 'z3test.py'), os.path.join(BUILD_DIR, 'python', 'z3test.py'))
+    shutil.copyfile(os.path.join(Z3PY_SRC_DIR, 'z3test.py'),
+                    os.path.join(BUILD_DIR, 'python', 'z3test.py'))
+
 
 def mk_bindings(api_files):
     if not ONLY_MAKEFILES:
@@ -3075,39 +3376,45 @@ def mk_bindings(api_files):
         import update_api
         dotnet_output_dir = None
         if is_dotnet_core_enabled():
-          dotnet_output_dir = os.path.join(BUILD_DIR, 'dotnet')
-          mk_dir(dotnet_output_dir)
+            dotnet_output_dir = os.path.join(BUILD_DIR, 'dotnet')
+            mk_dir(dotnet_output_dir)
         java_input_dir = None
         java_output_dir = None
         java_package_name = None
         if is_java_enabled():
-          java_output_dir = get_component('java').src_dir
-          java_input_dir = get_component('java').src_dir
-          java_package_name = get_component('java').package_name
+            java_output_dir = get_component('java').src_dir
+            java_input_dir = get_component('java').src_dir
+            java_package_name = get_component('java').package_name
         ml_output_dir = None
         if is_ml_enabled():
-          ml_output_dir = get_component('ml').src_dir
+            ml_output_dir = get_component('ml').src_dir
+        if is_js_enabled():
+            set_z3js_dir("api/js")
+            js_output_dir = get_component('js').src_dir
         # Get the update_api module to do the work for us
         update_api.VERBOSE = is_verbose()
         update_api.generate_files(api_files=new_api_files,
-          api_output_dir=get_component('api').src_dir,
-          z3py_output_dir=get_z3py_dir(),
-          dotnet_output_dir=dotnet_output_dir,
-          java_input_dir=java_input_dir,
-          java_output_dir=java_output_dir,
-          java_package_name=java_package_name,
-          ml_output_dir=ml_output_dir,
-          ml_src_dir=ml_output_dir
-        )
+                                  api_output_dir=get_component('api').src_dir,
+                                  z3py_output_dir=get_z3py_dir(),
+                                  dotnet_output_dir=dotnet_output_dir,
+                                  java_input_dir=java_input_dir,
+                                  java_output_dir=java_output_dir,
+                                  java_package_name=java_package_name,
+                                  js_output_dir=get_z3js_dir(),
+                                  ml_output_dir=ml_output_dir,
+                                  ml_src_dir=ml_output_dir
+                                  )
         cp_z3py_to_build()
         if is_ml_enabled():
             check_ml()
             mk_z3consts_ml(api_files)
-        if  is_dotnet_core_enabled():
+        if is_dotnet_core_enabled():
             check_dotnet_core()
             mk_z3consts_dotnet(api_files, dotnet_output_dir)
 
 # Extract enumeration types from API files, and add python definitions.
+
+
 def mk_z3consts_py(api_files):
     if Z3PY_SRC_DIR is None:
         raise MKException("You must invoke set_z3py_dir(path):")
@@ -3115,33 +3422,39 @@ def mk_z3consts_py(api_files):
     api_dll = get_component(Z3_DLL_COMPONENT)
     for api_file in api_files:
         api_file_c = api_dll.find_file(api_file, api_dll.name)
-        api_file   = os.path.join(api_file_c.src_dir, api_file)
+        api_file = os.path.join(api_file_c.src_dir, api_file)
         full_path_api_files.append(api_file)
-    generated_file = mk_genfile_common.mk_z3consts_py_internal(full_path_api_files, Z3PY_SRC_DIR)
+    generated_file = mk_genfile_common.mk_z3consts_py_internal(
+        full_path_api_files, Z3PY_SRC_DIR)
     if VERBOSE:
         print("Generated '{}".format(generated_file))
 
 # Extract enumeration types from z3_api.h, and add .Net definitions
+
+
 def mk_z3consts_dotnet(api_files, output_dir):
     dotnet = get_component(DOTNET_COMPONENT)
     if not dotnet:
-       dotnet = get_component(DOTNET_CORE_COMPONENT)
+        dotnet = get_component(DOTNET_CORE_COMPONENT)
     full_path_api_files = []
     for api_file in api_files:
         api_file_c = dotnet.find_file(api_file, dotnet.name)
-        api_file   = os.path.join(api_file_c.src_dir, api_file)
+        api_file = os.path.join(api_file_c.src_dir, api_file)
         full_path_api_files.append(api_file)
-    generated_file = mk_genfile_common.mk_z3consts_dotnet_internal(full_path_api_files, output_dir)
+    generated_file = mk_genfile_common.mk_z3consts_dotnet_internal(
+        full_path_api_files, output_dir)
     if VERBOSE:
         print("Generated '{}".format(generated_file))
 
 # Extract enumeration types from z3_api.h, and add Java definitions
+
+
 def mk_z3consts_java(api_files):
     java = get_component(JAVA_COMPONENT)
     full_path_api_files = []
     for api_file in api_files:
         api_file_c = java.find_file(api_file, java.name)
-        api_file   = os.path.join(api_file_c.src_dir, api_file)
+        api_file = os.path.join(api_file_c.src_dir, api_file)
         full_path_api_files.append(api_file)
     generated_files = mk_genfile_common.mk_z3consts_java_internal(
         full_path_api_files,
@@ -3152,24 +3465,28 @@ def mk_z3consts_java(api_files):
             print("Generated '{}'".format(generated_file))
 
 # Extract enumeration types from z3_api.h, and add ML definitions
+
+
 def mk_z3consts_ml(api_files):
     ml = get_component(ML_COMPONENT)
     full_path_api_files = []
     for api_file in api_files:
         api_file_c = ml.find_file(api_file, ml.name)
-        api_file   = os.path.join(api_file_c.src_dir, api_file)
+        api_file = os.path.join(api_file_c.src_dir, api_file)
         full_path_api_files.append(api_file)
     generated_file = mk_genfile_common.mk_z3consts_ml_internal(
         full_path_api_files,
         ml.src_dir)
     if VERBOSE:
-        print ('Generated "%s"' % generated_file)
+        print('Generated "%s"' % generated_file)
+
 
 def mk_gui_str(id):
     return '4D2F40D8-E5F9-473B-B548-%012d' % id
 
+
 def get_platform_toolset_str():
-    default = 'v110';
+    default = 'v110'
     vstr = check_output(['msbuild', '/ver'])
     lines = vstr.split('\n')
     lline = lines[-1]
@@ -3182,6 +3499,7 @@ def get_platform_toolset_str():
             return "v141"
         else:
             return 'v' + tokens[0] + tokens[1]
+
 
 def mk_vs_proj_property_groups(f, name, target_ext, type):
     f.write('  <ItemGroup Label="ProjectConfigurations">\n')
@@ -3198,7 +3516,8 @@ def mk_vs_proj_property_groups(f, name, target_ext, type):
     f.write('    <ProjectGuid>{%s}</ProjectGuid>\n' % mk_gui_str(0))
     f.write('    <ProjectName>%s</ProjectName>\n' % name)
     f.write('    <Keyword>Win32Proj</Keyword>\n')
-    f.write('    <PlatformToolset>%s</PlatformToolset>\n' % get_platform_toolset_str())
+    f.write('    <PlatformToolset>%s</PlatformToolset>\n' %
+            get_platform_toolset_str())
     f.write('  </PropertyGroup>\n')
     f.write('  <Import Project="$(VCTargetsPath)\\Microsoft.Cpp.Default.props" />\n')
     f.write('  <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|Win32\'" Label="Configuration">\n')
@@ -3264,14 +3583,17 @@ def mk_vs_proj_cl_compile(f, name, components, debug):
     f.write('</AdditionalIncludeDirectories>\n')
     f.write('    </ClCompile>\n')
 
+
 def mk_vs_proj_dep_groups(f, name, components):
     f.write('  <ItemGroup>\n')
     deps = find_all_deps(name, components)
     for dep in deps:
         dep = get_component(dep)
         for cpp in filter(lambda f: f.endswith('.cpp'), os.listdir(dep.src_dir)):
-            f.write('    <ClCompile Include="%s" />\n' % os.path.join(dep.to_src_dir, cpp))
+            f.write('    <ClCompile Include="%s" />\n' %
+                    os.path.join(dep.to_src_dir, cpp))
     f.write('  </ItemGroup>\n')
+
 
 def mk_vs_proj_link_exe(f, name, debug):
     f.write('    <Link>\n')
@@ -3286,12 +3608,13 @@ def mk_vs_proj_link_exe(f, name, debug):
     f.write('      <AdditionalDependencies>psapi.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>\n')
     f.write('    </Link>\n')
 
+
 def mk_vs_proj(name, components):
     if not VS_PROJ:
         return
     proj_name = '%s.vcxproj' % os.path.join(BUILD_DIR, name)
-    modes=['Debug', 'Release']
-    PLATFORMS=['Win32']
+    modes = ['Debug', 'Release']
+    PLATFORMS = ['Win32']
     f = open(proj_name, 'w')
     f.write('<?xml version="1.0" encoding="utf-8"?>\n')
     f.write('<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">\n')
@@ -3313,6 +3636,7 @@ def mk_vs_proj(name, components):
     if is_verbose():
         print("Generated '%s'" % proj_name)
 
+
 def mk_vs_proj_link_dll(f, name, debug):
     f.write('    <Link>\n')
     f.write('      <OutputFile>$(OutDir)%s.dll</OutputFile>\n' % name)
@@ -3324,15 +3648,17 @@ def mk_vs_proj_link_dll(f, name, debug):
     f.write('      <TargetMachine>MachineX86</TargetMachine>\n')
     f.write('      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>\n')
     f.write('      <AdditionalDependencies>psapi.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>\n')
-    f.write('      <ModuleDefinitionFile>%s</ModuleDefinitionFile>' % os.path.join(get_component('api_dll').to_src_dir, 'api_dll.def'))
+    f.write('      <ModuleDefinitionFile>%s</ModuleDefinitionFile>' %
+            os.path.join(get_component('api_dll').to_src_dir, 'api_dll.def'))
     f.write('    </Link>\n')
+
 
 def mk_vs_proj_dll(name, components):
     if not VS_PROJ:
         return
     proj_name = '%s.vcxproj' % os.path.join(BUILD_DIR, name)
-    modes=['Debug', 'Release']
-    PLATFORMS=['Win32']
+    modes = ['Debug', 'Release']
+    PLATFORMS = ['Win32']
     f = open(proj_name, 'w')
     f.write('<?xml version="1.0" encoding="utf-8"?>\n')
     f.write('<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">\n')
@@ -3354,9 +3680,11 @@ def mk_vs_proj_dll(name, components):
     if is_verbose():
         print("Generated '%s'" % proj_name)
 
+
 def mk_win_dist(build_path, dist_path):
     for c in get_components():
         c.mk_win_dist(build_path, dist_path)
+
 
 def mk_unix_dist(build_path, dist_path):
     for c in get_components():
@@ -3365,6 +3693,7 @@ def mk_unix_dist(build_path, dist_path):
     for pyc in filter(lambda f: f.endswith('.pyc') or f.endswith('.py'), os.listdir(build_path)):
         shutil.copy(os.path.join(build_path, pyc),
                     os.path.join(dist_path, INSTALL_BIN_DIR, pyc))
+
 
 class MakeRuleCmd(object):
     """
@@ -3400,8 +3729,8 @@ class MakeRuleCmd(object):
             install_root = "$(DESTDIR)"
             action_string = 'install' if is_install else 'uninstall'
             cls.write_cmd(out, 'echo "WARNING: {}ing files/directories ({}) that are not in the install prefix ($(PREFIX))."'.format(
-                    action_string, path))
-            #print("WARNING: Generating makefile rule that {}s {} '{}' which is outside the installation prefix '{}'.".format(
+                action_string, path))
+            # print("WARNING: Generating makefile rule that {}s {} '{}' which is outside the installation prefix '{}'.".format(
             #        action_string, 'to' if is_install else 'from', path, PREFIX))
         else:
             # assert not os.path.isabs(path)
@@ -3428,7 +3757,8 @@ class MakeRuleCmd(object):
         assert len(pattern) > 0
         assert cls._is_str(pattern)
         assert not ' ' in pattern
-        install_root = cls._install_root(pattern, in_prefix, out, is_install=False)
+        install_root = cls._install_root(
+            pattern, in_prefix, out, is_install=False)
 
         cls.write_cmd(out, "rm -f {install_root}{pattern}".format(
             install_root=install_root,
@@ -3506,7 +3836,7 @@ class MakeRuleCmd(object):
         target_from_prefix = targetAsAbs[len(temp_path):]
         relative_path += target_from_prefix
         # Remove any double slashes
-        relative_path = relative_path.replace('//','/')
+        relative_path = relative_path.replace('//', '/')
         cls.create_symbolic_link(out, relative_path, link_name)
 
     @classmethod
@@ -3529,16 +3859,18 @@ class MakeRuleCmd(object):
     def write_cmd(cls, out, line):
         out.write("\t@{}\n".format(line))
 
+
 def strip_path_prefix(path, prefix):
     if path.startswith(prefix):
         stripped_path = path[len(prefix):]
-        stripped_path.replace('//','/')
+        stripped_path.replace('//', '/')
         if stripped_path[0] == '/':
             stripped_path = stripped_path[1:]
         assert not os.path.isabs(stripped_path)
         return stripped_path
     else:
         return path
+
 
 def configure_file(template_file_path, output_file_path, substitutions):
     """
@@ -3558,7 +3890,8 @@ def configure_file(template_file_path, output_file_path, substitutions):
     print("Generating {} from {}".format(output_file_path, template_file_path))
 
     if not os.path.exists(template_file_path):
-        raise MKException('Could not find template file "{}"'.format(template_file_path))
+        raise MKException(
+            'Could not find template file "{}"'.format(template_file_path))
 
     # Read whole template file into string
     template_string = None
@@ -3567,11 +3900,13 @@ def configure_file(template_file_path, output_file_path, substitutions):
 
     # Do replacements
     for (old_string, replacement) in substitutions.items():
-        template_string = template_string.replace('@{}@'.format(old_string), replacement)
+        template_string = template_string.replace(
+            '@{}@'.format(old_string), replacement)
 
     # Write the string to the file
     with open(output_file_path, 'w') as f:
         f.write(template_string)
+
 
 if __name__ == '__main__':
     import doctest
