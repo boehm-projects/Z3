@@ -175,6 +175,12 @@ Type2JsStr = { VOID : 'Void', VOID_PTR : 'Voidp', INT : 'CInt', UINT : 'CUInt', 
                PRINT_MODE : 'CUInt', ERROR_CODE : 'CUInt', CHAR: 'CChar', CHAR_PTR: 'CString'
                }
 
+Type2JsStr = { VOID : 'Void', VOID_PTR : 'Voidp', INT : 'CInt', UINT : 'CUInt', INT64 : 'CLong',
+               UINT64 : 'CULong', DOUBLE : 'CDouble',
+               STRING : 'CString', STRING_PTR : 'CStringPtr', FLOAT: 'CFloat', BOOL : 'CInt', SYMBOL : 'Symbol',
+               PRINT_MODE : 'CUInt', ERROR_CODE : 'CUInt', CHAR: 'CChar', CHAR_PTR: 'CString'
+               }
+
 # Mapping to .NET types
 Type2Dotnet = { VOID : 'void', VOID_PTR : 'IntPtr', INT : 'int', UINT : 'uint', INT64 : 'Int64', UINT64 : 'UInt64', DOUBLE : 'double',
                 FLOAT : 'float', STRING : 'string', STRING_PTR : 'byte**', BOOL : 'byte', SYMBOL : 'IntPtr',
@@ -2107,6 +2113,8 @@ log_h = None
 log_c = None
 exe_c = None
 core_py = None
+core_js = None
+core_flat = None
 
 # FIXME: This can only be called once from this module
 # due to its use of global state!
