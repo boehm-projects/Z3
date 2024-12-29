@@ -86,13 +86,14 @@ Type2Str = {VOID: 'void', VOID_PTR: 'void*', INT: 'int', UINT: 'unsigned', INT64
 Type2PyStr = {VOID_PTR: 'ctypes.c_void_p', INT: 'ctypes.c_int', UINT: 'ctypes.c_uint', INT64: 'ctypes.c_longlong',
               UINT64: 'ctypes.c_ulonglong', DOUBLE: 'ctypes.c_double', FLOAT: 'ctypes.c_float',
               STRING: 'ctypes.c_char_p', STRING_PTR: 'ctypes.POINTER(ctypes.c_char_p)', BOOL: 'ctypes.c_bool', SYMBOL: 'Symbol',
-              PRINT_MODE: 'ctypes.c_uint', ERROR_CODE: 'ctypes.c_uint'
+              PRINT_MODE: 'ctypes.c_uint', ERROR_CODE: 'ctypes.c_uint', CHAR_PTR: 'ctypes.POINTER(ctypes.c_char)',
+              LBOOL : 'ctypes.c_int'
               }
 
 Type2JsStr = {VOID: 'Void', VOID_PTR: 'Voidp', INT: 'CInt', UINT: 'CUInt', INT64: 'CLong',
               UINT64: 'CULong', DOUBLE: 'CDouble',
               STRING: 'CString', STRING_PTR: 'CStringPtr', FLOAT: 'CFloat', BOOL: 'CInt', SYMBOL: 'Symbol',
-              PRINT_MODE: 'CUInt', ERROR_CODE: 'CUInt'
+              PRINT_MODE: 'CUInt', ERROR_CODE: 'CUInt', LBOOL : 'CInt', CHAR_PTR: 'CCharPtr'
               }
 
 # Mapping to .NET types
@@ -2064,7 +2065,6 @@ def def_APIs(api_files):
             except Exception as e:
                 print("Failed to process API definition: %s" % line)
                 print('Error: ' + str(e))
-
 
 def write_log_h_preamble(log_h):
     log_h.write('// Automatically generated file\n')

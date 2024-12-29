@@ -97,7 +97,7 @@ DOTNET_KEY_FILE = getenv("Z3_DOTNET_KEY_FILE", None)
 ASSEMBLY_VERSION = getenv("Z2_ASSEMBLY_VERSION", None)
 JAVA_ENABLED = False
 ML_ENABLED = False
-JS_ENABLED = False
+JS_ENABLED = True 
 PYTHON_INSTALL_ENABLED = False
 STATIC_LIB = False
 STATIC_BIN = False
@@ -887,8 +887,6 @@ def parse_options():
             GIT_DESCRIBE = True
         elif opt in ('', '--ml'):
             ML_ENABLED = True
-        elif opt == "--js":
-            JS_ENABLED = True
         elif opt in ('', '--log-sync'):
             LOG_SYNC = True
         elif opt == '--single-threaded':
@@ -1014,7 +1012,7 @@ def get_z3py_dir():
 
 
 def get_z3js_dir():
-    return "../bin/"
+    return Z3JS_SRC_DIR
 
 # Return true if in verbose mode
 

@@ -98,6 +98,8 @@ out/**
 doc/api
 doc/code
 .vs
+.idea/
+
 examples/**/obj
 CMakeSettings.json
 # Editor temp files
@@ -105,3 +107,6 @@ CMakeSettings.json
 .DS_Store
 dbg/**
 *.wsp
+src/api/python/z3_bindings_flat
+src/api/python/z3_bindings_stripped.js
+src/api/js/z3.json
