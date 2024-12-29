@@ -93,7 +93,7 @@ Type2PyStr = {VOID_PTR: 'ctypes.c_void_p', INT: 'ctypes.c_int', UINT: 'ctypes.c_
 Type2JsStr = {VOID: 'Void', VOID_PTR: 'Voidp', INT: 'CInt', UINT: 'CUInt', INT64: 'CLong',
               UINT64: 'CULong', DOUBLE: 'CDouble',
               STRING: 'CString', STRING_PTR: 'CStringPtr', FLOAT: 'CFloat', BOOL: 'CInt', SYMBOL: 'Symbol',
-              PRINT_MODE: 'CUInt', ERROR_CODE: 'CUInt', LBOOL : 'CInt', CHAR_PTR: 'CStringPtr'
+              PRINT_MODE: 'CUInt', ERROR_CODE: 'CUInt', LBOOL : 'CInt', CHAR_PTR: 'CString'
               }
 
 # Mapping to .NET types

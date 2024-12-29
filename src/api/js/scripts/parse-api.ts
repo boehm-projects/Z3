@@ -291,7 +291,7 @@ for (let file of files) {
           }
         }
 
-        if (paramType === 'Z3_string_ptr' && !isPtr) {
+        if (paramType === 'Z3_string_ptr' || paramType ==='Z3_char_ptr' && !isPtr) {
           paramType = 'Z3_string';
           isPtr = true;
         }
